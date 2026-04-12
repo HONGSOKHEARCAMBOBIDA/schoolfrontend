@@ -18,7 +18,7 @@ export function useClassSubject() {
       const res = await classService.fetchClasses()
       classes.value = res.data.data
     } catch {
-      showError('កើតបញ្ហាក្នុងការទាញថ្នាក់')
+      showError('មានបញ្ហាក្នុងការទាញថ្នាក់')
     }
   }
 
@@ -33,7 +33,7 @@ export function useClassSubject() {
       assignedSubjects.value = assigned.data || []
       notAssignedSubjects.value = notAssigned.data || []
     } catch {
-      showError('កើតបញ្ហា ក្នុងការទាញទិន្នន័យ')
+      showError('មានបញ្ហាក្នុងការទាញទិន្នន័យ')
     } finally {
       loading.value = false
     }

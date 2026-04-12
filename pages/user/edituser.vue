@@ -293,7 +293,7 @@ export default {
     },
     async fetchProvinces() {
       try {
-        const res = await axios.get("https://6mqffthw-8080.asse.devtunnels.ms/province", {
+        const res = await axios.get("http://localhost:8080/province", {
           headers: { Authorization: `Bearer ${this.getToken()}` },
         });
         this.provinces = res.data;
@@ -313,7 +313,7 @@ export default {
       if (!this.selectedProvince) return;
 
       try {
-        const res = await axios.get(`https://6mqffthw-8080.asse.devtunnels.ms/district/${this.selectedProvince}`, {
+        const res = await axios.get(`http://localhost:8080/district/${this.selectedProvince}`, {
           headers: { Authorization: `Bearer ${this.getToken()}` },
         });
         this.districts = res.data;
@@ -332,7 +332,7 @@ export default {
 
       try {
         const res = await axios.get(
-          `https://6mqffthw-8080.asse.devtunnels.ms/commune/${this.selectedDistrict}`,
+          `http://localhost:8080/commune/${this.selectedDistrict}`,
           {
             headers: { Authorization: `Bearer ${this.getToken()}` },
           }
@@ -350,7 +350,7 @@ export default {
       if (!this.selectedCommune) return;
 
       try {
-        const res = await axios.get(`https://6mqffthw-8080.asse.devtunnels.ms/village/${this.selectedCommune}`, {
+        const res = await axios.get(`http://localhost:8080/village/${this.selectedCommune}`, {
           headers: { Authorization: `Bearer ${this.getToken()}` },
         });
         this.villages = res.data;
@@ -361,7 +361,7 @@ export default {
     },
     async fetchRoles() {
       try {
-        const res = await axios.get("https://6mqffthw-8080.asse.devtunnels.ms/role", {
+        const res = await axios.get("http://localhost:8080/role", {
           headers: { Authorization: `Bearer ${this.getToken()}` },
         });
         this.roles = res.data;
@@ -377,7 +377,7 @@ export default {
       }
 
       try {
-        const res = await axios.get(`https://6mqffthw-8080.asse.devtunnels.ms/users/search?q=${this.searchQuery}`, {
+        const res = await axios.get(`http://localhost:8080/users/search?q=${this.searchQuery}`, {
           headers: { Authorization: `Bearer ${this.getToken()}` },
         });
         this.searchResults = res.data;
@@ -388,7 +388,7 @@ export default {
     },
     async loadUser(userId) {
       try {
-        const res = await axios.get(`https://6mqffthw-8080.asse.devtunnels.ms/users/${userId}`, {
+        const res = await axios.get(`http://localhost:8080/users/${userId}`, {
           headers: { Authorization: `Bearer ${this.getToken()}` },
         });
         
@@ -422,7 +422,7 @@ export default {
     async loadAddressHierarchy(villageId) {
       try {
         // Fetch village details to get commune ID
-        const villageRes = await axios.get(`https://6mqffthw-8080.asse.devtunnels.ms/village-details/${villageId}`, {
+        const villageRes = await axios.get(`http://localhost:8080/village-details/${villageId}`, {
           headers: { Authorization: `Bearer ${this.getToken()}` },
         });
         
@@ -433,7 +433,7 @@ export default {
         await this.fetchVillages();
         
         // Fetch commune details to get district ID
-        const communeRes = await axios.get(`https://6mqffthw-8080.asse.devtunnels.ms/commune-details/${villageData.commune_id}`, {
+        const communeRes = await axios.get(`http://localhost:8080/commune-details/${villageData.commune_id}`, {
           headers: { Authorization: `Bearer ${this.getToken()}` },
         });
         
@@ -444,7 +444,7 @@ export default {
         await this.fetchCommunes();
         
         // Fetch district details to get province ID
-        const districtRes = await axios.get(`https://6mqffthw-8080.asse.devtunnels.ms/district-details/${communeData.district_id}`, {
+        const districtRes = await axios.get(`http://localhost:8080/district-details/${communeData.district_id}`, {
           headers: { Authorization: `Bearer ${this.getToken()}` },
         });
         
@@ -489,7 +489,7 @@ export default {
           }
         });
 
-        await axios.put(`https://6mqffthw-8080.asse.devtunnels.ms/users/${this.user.id}`, formData, {
+        await axios.put(`http://localhost:8080/users/${this.user.id}`, formData, {
           headers: { 
             Authorization: `Bearer ${this.getToken()}`,
             'Content-Type': 'multipart/form-data'

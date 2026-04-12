@@ -292,7 +292,7 @@ exportToExcel() {
 
     async fetchtypeexam() {
       try {
-        const res = await axios.get('https://6mqffthw-8080.asse.devtunnels.ms/typeexam', {
+        const res = await axios.get('http://localhost:8080/typeexam', {
           headers: { Authorization: `Bearer ${this.getToken()}` },
         });
         this.tyeexam = res.data;
@@ -319,7 +319,7 @@ exportToExcel() {
 
     async fetchAcademicYears() {
       try {
-        const res = await axios.get('https://6mqffthw-8080.asse.devtunnels.ms/viewacademicyear', {
+        const res = await axios.get('http://localhost:8080/viewacademicyear', {
           headers: { Authorization: `Bearer ${this.getToken()}` },
         });
         this.academicYears = res.data;
@@ -330,7 +330,7 @@ exportToExcel() {
 
     async fetchClasses() {
       try {
-        const res = await axios.get('https://6mqffthw-8080.asse.devtunnels.ms/class', {
+        const res = await axios.get('http://localhost:8080/class', {
           headers: { Authorization: `Bearer ${this.getToken()}` },
         });
         this.classes = res.data;
@@ -342,7 +342,7 @@ exportToExcel() {
     async fetchScores() {
       this.loading = true;
       try {
-        const res = await axios.get('https://6mqffthw-8080.asse.devtunnels.ms/scoreavg', {
+        const res = await axios.get('http://localhost:8080/scoreavg', {
           headers: { Authorization: `Bearer ${this.getToken()}` },
           params: {
             academic_year_id: this.selectedAcademicYear,

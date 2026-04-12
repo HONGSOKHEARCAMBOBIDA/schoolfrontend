@@ -12,14 +12,18 @@ export default function useLogin() {
   const handleLogin = async () => {
     loading.value = true
     try {
-      const response = await axios.post('https://6mqffthw-8080.asse.devtunnels.ms/login', {
+      const response = await axios.post('http://localhost:8080/login', {
         phone: phone.value,
         password: password.value
       })
 
       // save token
       const token = useCookie('token')
+      const name = useCookie('name')
+      const rolename = useCookie('role_name')
       token.value = response.data.token
+      name.value = response.data.user.name
+      rolename.value = response.data.user.role_name
 
       // navigate
       navigateTo('/')

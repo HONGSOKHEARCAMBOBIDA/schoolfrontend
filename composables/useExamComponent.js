@@ -90,7 +90,7 @@ export function useExamComponent() {
       }
       cancelEdit();
     } catch (e) {
-     showError("កើតបញ្ហាក្នុងការកែប្រែ");
+     showError("មានបញ្ហាក្នុងការកែប្រែ");
     }
   };
 
@@ -108,7 +108,7 @@ export function useExamComponent() {
       newComponentName.value = ""; // reset input
       await fetchExamComponents(selectClass.value, selectSubject); // refresh list
     } catch (e) {
-      toastMessage.value = "កើតបញ្ហាក្នុងការបង្កើត Exam Component";
+      toastMessage.value = "មានបញ្ហាក្នុងការបង្កើត Exam Component";
     }
   };
 

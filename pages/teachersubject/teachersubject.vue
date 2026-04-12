@@ -225,7 +225,7 @@ const ready = computed(() =>
 
 // ---------- Fetchers ----------
 const fetchTeachers = async () => {
-  const res = await axios.get('https://6mqffthw-8080.asse.devtunnels.ms/viewuser', {
+  const res = await axios.get('http://localhost:8080/viewuser', {
     headers: { Authorization: `Bearer ${getToken()}` },
     params: { role_id: 4 }
   })
@@ -233,14 +233,14 @@ const fetchTeachers = async () => {
 }
 
 const fetchClasses = async () => {
-  const res = await axios.get('https://6mqffthw-8080.asse.devtunnels.ms/class', {
+  const res = await axios.get('http://localhost:8080/class', {
     headers: { Authorization: `Bearer ${getToken()}` }
   })
   classes.value = res.data || []
 }
 
 const fetchAcademicYears = async () => {
-  const res = await axios.get('https://6mqffthw-8080.asse.devtunnels.ms/viewacademicyear', {
+  const res = await axios.get('http://localhost:8080/viewacademicyear', {
     headers: { Authorization: `Bearer ${getToken()}` }
   })
   academicYears.value = res.data || []
@@ -251,11 +251,11 @@ const fetchSubjectsForTeacher = async () => {
   loading.value = true
   try {
     const [assignedRes, notAssignedRes] = await Promise.all([
-      axios.get('https://6mqffthw-8080.asse.devtunnels.ms/teachersubject', {
+      axios.get('http://localhost:8080/teachersubject', {
         headers: { Authorization: `Bearer ${getToken()}` },
         params: { user_id: selectedTeacher.value, academic_year_id: selectedAcademicYear.value, class_id: selectedClass.value }
       }),
-      axios.get('https://6mqffthw-8080.asse.devtunnels.ms/getsubjectclassnotassigntoteacher', {
+      axios.get('http://localhost:8080/getsubjectclassnotassigntoteacher', {
         headers: { Authorization: `Bearer ${getToken()}` },
         params: { user_id: selectedTeacher.value, class_id: selectedClass.value, academic_year_id: selectedAcademicYear.value }
       })
@@ -298,7 +298,7 @@ const assignSubjects = async () => {
 
   try {
     await axios.post(
-      'https://6mqffthw-8080.asse.devtunnels.ms/teachersubject',
+      'http://localhost:8080/teachersubject',
       {
         user_id: Number(selectedTeacher.value),
         class_subject_id: selectedSubjects.value,
@@ -319,7 +319,7 @@ const assignSubjects = async () => {
 const deleteSubjectById = async (id) => {
   if (!confirm("តើអ្នកប្រាកដចង់លុបមែនទេ?")) return
   try {
-    await axios.delete(`https://6mqffthw-8080.asse.devtunnels.ms/deleteteachersubject/${id}`, {
+    await axios.delete(`http://localhost:8080/deleteteachersubject/${id}`, {
       headers: { Authorization: `Bearer ${getToken()}` }
     })
     showSuccess('លុបបានជោគជ័យ 🗑️')

@@ -223,7 +223,7 @@ export default {
     },
     async fetchProvinces() {
       try {
-        const res = await axios.get("https://6mqffthw-8080.asse.devtunnels.ms/province", {
+        const res = await axios.get("http://localhost:8080/province", {
           headers: { Authorization: `Bearer ${this.getToken()}` },
         });
         this.provinces = res.data;
@@ -243,7 +243,7 @@ export default {
       if (!this.selectedProvince) return;
 
       try {
-        const res = await axios.get(`https://6mqffthw-8080.asse.devtunnels.ms/district/${this.selectedProvince}`, {
+        const res = await axios.get(`http://localhost:8080/district/${this.selectedProvince}`, {
           headers: { Authorization: `Bearer ${this.getToken()}` },
         });
         this.districts = res.data;
@@ -267,7 +267,7 @@ export default {
 
       try {
         const res = await axios.get(
-          `https://6mqffthw-8080.asse.devtunnels.ms/communce/${this.selectedDistrict}`,
+          `http://localhost:8080/communce/${this.selectedDistrict}`,
           {
             headers: { Authorization: `Bearer ${this.getToken()}` },
           }
@@ -284,7 +284,7 @@ export default {
       if (!this.selectedCommune) return;
 
       try {
-        const res = await axios.get(`https://6mqffthw-8080.asse.devtunnels.ms/village/${this.selectedCommune}`, {
+        const res = await axios.get(`http://localhost:8080/village/${this.selectedCommune}`, {
           headers: { Authorization: `Bearer ${this.getToken()}` },
         });
         this.villages = res.data;
@@ -295,7 +295,7 @@ export default {
     },
     async fetchRoles() {
       try {
-        const res = await axios.get("https://6mqffthw-8080.asse.devtunnels.ms/role", {
+        const res = await axios.get("http://localhost:8080/role", {
           headers: { Authorization: `Bearer ${this.getToken()}` },
         });
         this.roles = res.data;
@@ -322,7 +322,7 @@ export default {
           formData.append("image", this.image); // 👈 add image
         }
 
-        await axios.post("https://6mqffthw-8080.asse.devtunnels.ms/register", formData, {
+        await axios.post("http://localhost:8080/register", formData, {
           headers: { 
             Authorization: `Bearer ${this.getToken()}`,
             'Content-Type': 'multipart/form-data'

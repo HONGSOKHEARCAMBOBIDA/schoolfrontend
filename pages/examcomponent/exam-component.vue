@@ -92,7 +92,7 @@ const getToken = () => Cookies.get('token')
 // Fetch classes
 const fetchClasses = async () => {
   try {
-    const res = await axios.get('https://6mqffthw-8080.asse.devtunnels.ms/class', {
+    const res = await axios.get('http://localhost:8080/class', {
       headers: { Authorization: `Bearer ${getToken()}` }
     })
     classes.value = res.data
@@ -118,7 +118,7 @@ const fetchAssignedSubjects = async () => {
   if (!selectedClassId.value) return
   loading.value = true
   try {
-    const res = await axios.get('https://6mqffthw-8080.asse.devtunnels.ms/viewclassasignsubjectnotinexamcomponent', {
+    const res = await axios.get('http://localhost:8080/viewclassasignsubjectnotinexamcomponent', {
       headers: { Authorization: `Bearer ${getToken()}` },
       params: { class_id: selectedClassId.value }
     })
@@ -147,7 +147,7 @@ const createExamComponent = async () => {
     return
   }
   try {
-    await axios.post('https://6mqffthw-8080.asse.devtunnels.ms/examcomponent', {
+    await axios.post('http://localhost:8080/examcomponent', {
       name: examComponentName.value,
       class_subject_id: selectedSubjectId.value
     }, {

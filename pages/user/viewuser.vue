@@ -149,7 +149,7 @@
                         <td>
       <img
         v-if="user.image"
-        :src="`https://6mqffthw-8080.asse.devtunnels.ms/images/${user.image}`"
+        :src="`http://localhost:8080/images/${user.image}`"
         alt="User Image"
         class="rounded-circle"
         style="width: 50px; height: 50px; object-fit: cover;"
@@ -160,7 +160,7 @@
                     <td>{{ user.phone }}</td>
                     <td>{{ user.role_name }}</td>
                           <td>
-        <div v-if="user.role_name === 'Teacher' && user.classes && user.classes.length > 0">
+        <div v-if="user.role_name === 'គ្រូបង្រៀន' && user.classes && user.classes.length > 0">
           <span
             v-for="cls in user.classes"
             :key="cls.id + '-' + cls.academic_year_id"

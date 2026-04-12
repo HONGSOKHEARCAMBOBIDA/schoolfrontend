@@ -627,7 +627,7 @@ export default {
     async updatestudentclass(studentclassid) {
       try {
         await axios.put(
-          `https://6mqffthw-8080.asse.devtunnels.ms/updatestudentclass/${studentclassid}`,
+          `http://localhost:8080/updatestudentclass/${studentclassid}`,
           { class_id: this.editClassID },
           { headers: { Authorization: `Bearer ${this.getToken()}` } }
         );
@@ -649,7 +649,7 @@ export default {
     },
     async fetchAcademicYears() {
       try {
-        const res = await axios.get("https://6mqffthw-8080.asse.devtunnels.ms/viewacademicyear", {
+        const res = await axios.get("http://localhost:8080/viewacademicyear", {
           headers: { Authorization: `Bearer ${this.getToken()}` },
         });
         this.academicYears = res.data;
@@ -660,7 +660,7 @@ export default {
     },
     async fetchClasses() {
       try {
-        const res = await axios.get("https://6mqffthw-8080.asse.devtunnels.ms/class", {
+        const res = await axios.get("http://localhost:8080/class", {
           headers: { Authorization: `Bearer ${this.getToken()}` },
         });
         this.classes = res.data;
@@ -674,7 +674,7 @@ async fetchStudents() {
     this.loading = true;
     this.students = [];   // 👈 clear old list immediately
 
-    const res = await axios.get("https://6mqffthw-8080.asse.devtunnels.ms/viewstudent", {
+    const res = await axios.get("http://localhost:8080/viewstudent", {
       headers: { Authorization: `Bearer ${this.getToken()}` },
       params: {
         name: this.searchName,
@@ -699,7 +699,7 @@ async fetchStudents() {
 
     async toggleStatus(id) {
       try {
-        await axios.put(`https://6mqffthw-8080.asse.devtunnels.ms/changestatusstudent/${id}`, {}, {
+        await axios.put(`http://localhost:8080/changestatusstudent/${id}`, {}, {
           headers: { Authorization: `Bearer ${this.getToken()}` },
         });
         this.showSuccess("ស្ថានភាពបានផ្លាស់ប្តូរ ✅");
@@ -711,7 +711,7 @@ async fetchStudents() {
     },
     async Suspendstudies(id){
       try{
-          await axios.put(`https://6mqffthw-8080.asse.devtunnels.ms/Suspendstudies/${id}`,{},{
+          await axios.put(`http://localhost:8080/Suspendstudies/${id}`,{},{
             headers: { Authorization: `Bearer ${this.getToken()}` },
           });
           this.showSuccess("ស្ថានភាពបានផ្លាស់ប្តូរ ✅");
@@ -723,7 +723,7 @@ console.error(err);
     },
         async Changeschool(id){
       try{
-          await axios.put(`https://6mqffthw-8080.asse.devtunnels.ms/changeschool/${id}`,{},{
+          await axios.put(`http://localhost:8080/changeschool/${id}`,{},{
             headers: { Authorization: `Bearer ${this.getToken()}` },
           });
           this.showSuccess("ស្ថានភាពបានផ្លាស់ប្តូរ ✅");

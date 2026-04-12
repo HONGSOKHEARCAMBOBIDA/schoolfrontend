@@ -86,7 +86,7 @@ export default {
     },
     async fetchAcademicYears() {
       try {
-        const res = await axios.get('https://6mqffthw-8080.asse.devtunnels.ms/viewacademicyear', {
+        const res = await axios.get('http://localhost:8080/viewacademicyear', {
           headers: { Authorization: `Bearer ${this.getToken()}` },
         });
         this.academicYears = res.data;
@@ -96,7 +96,7 @@ export default {
     },
     async fetchClasses() {
       try {
-        const res = await axios.get('https://6mqffthw-8080.asse.devtunnels.ms/class', {
+        const res = await axios.get('http://localhost:8080/class', {
           headers: { Authorization: `Bearer ${this.getToken()}` },
         });
         this.classes = res.data;
@@ -107,7 +107,7 @@ export default {
     async fetchScores() {
       this.loading = true;
       try {
-        const res = await axios.get('https://6mqffthw-8080.asse.devtunnels.ms/scoreAnnual', {
+        const res = await axios.get('http://localhost:8080/scoreAnnual', {
           headers: { Authorization: `Bearer ${this.getToken()}` },
           params: {
             academic_year_id: this.selectedAcademicYear,

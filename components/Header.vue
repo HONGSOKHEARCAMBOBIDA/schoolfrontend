@@ -172,7 +172,10 @@
         <!-- User info (desktop) -->
         <div class="user-info d-none d-lg-block">
           <i class="bi bi-person-circle me-1"></i>
-          សូមស្វាគមន៍, អ្នកប្រើប្រាស់
+          សូមស្វាគមន៍, {{ name }} ({{ role }})
+          <button class="btn btn-sm btn-danger ms-3" @click="logout">
+  <i class="bi bi-box-arrow-right me-1"></i> ចាកចេញ
+</button>
         </div>
 
         <!-- User info (mobile) -->
@@ -190,8 +193,22 @@
 </template>
 
 <script setup>
+
+import { useCookie, navigateTo } from '#app'
+const name = useCookie('name')
+const role = useCookie('role_name')
 function logout() {
-  alert("Logout functionality would execute here");
+  const token = useCookie('token')
+  const name = useCookie('name')
+  const role = useCookie('role_name')
+
+  // clear cookies
+  token.value = null
+  name.value = null
+  role.value = null
+
+  // redirect to login page
+  navigateTo('/login')
 }
 </script>
 

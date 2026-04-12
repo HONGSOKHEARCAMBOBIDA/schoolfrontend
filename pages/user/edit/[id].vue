@@ -173,18 +173,18 @@ export default {
     this.imageFile = e.target.files[0]; // store selected file
   },
     async fetchRoles() {
-      const res = await axios.get("https://6mqffthw-8080.asse.devtunnels.ms/role", { headers: { Authorization: `Bearer ${this.getToken()}` }});
+      const res = await axios.get("http://localhost:8080/role", { headers: { Authorization: `Bearer ${this.getToken()}` }});
       this.roles = res.data;
     },
 
     async fetchProvinces() {
-      const res = await axios.get("https://6mqffthw-8080.asse.devtunnels.ms/province", { headers: { Authorization: `Bearer ${this.getToken()}` }});
+      const res = await axios.get("http://localhost:8080/province", { headers: { Authorization: `Bearer ${this.getToken()}` }});
       this.provinces = res.data;
     },
 
     async fetchDistricts() {
       if (!this.user.province_id) return;
-      const res = await axios.get(`https://6mqffthw-8080.asse.devtunnels.ms/district/${this.user.province_id}`, { headers: { Authorization: `Bearer ${this.getToken()}` }});
+      const res = await axios.get(`http://localhost:8080/district/${this.user.province_id}`, { headers: { Authorization: `Bearer ${this.getToken()}` }});
       this.districts = res.data;
       this.communes = [];
       this.villages = [];
@@ -192,21 +192,21 @@ export default {
 
     async fetchCommunes() {
       if (!this.user.district_id) return;
-      const res = await axios.get(`https://6mqffthw-8080.asse.devtunnels.ms/communce/${this.user.district_id}`, { headers: { Authorization: `Bearer ${this.getToken()}` }});
+      const res = await axios.get(`http://localhost:8080/communce/${this.user.district_id}`, { headers: { Authorization: `Bearer ${this.getToken()}` }});
       this.communes = res.data;
       this.villages = [];
     },
 
     async fetchVillages() {
       if (!this.user.commune_id) return;
-      const res = await axios.get(`https://6mqffthw-8080.asse.devtunnels.ms/village/${this.user.commune_id}`, { headers: { Authorization: `Bearer ${this.getToken()}` }});
+      const res = await axios.get(`http://localhost:8080/village/${this.user.commune_id}`, { headers: { Authorization: `Bearer ${this.getToken()}` }});
       this.villages = res.data;
     },
 
 async fetchUser() {
   const id = this.$route.params.id;
   try {
-    const res = await axios.get(`https://6mqffthw-8080.asse.devtunnels.ms/user/${id}`, {
+    const res = await axios.get(`http://localhost:8080/user/${id}`, {
       headers: { Authorization: `Bearer ${this.getToken()}` },
     });
 
@@ -230,13 +230,13 @@ async fetchUser() {
     async resolveLocationTree(village_id) {
       if (!village_id) return;
 
-      const v = await axios.get(`https://6mqffthw-8080.asse.devtunnels.ms/village-by-id/${village_id}`, { headers: { Authorization: `Bearer ${this.getToken()}` }});
+      const v = await axios.get(`http://localhost:8080/village-by-id/${village_id}`, { headers: { Authorization: `Bearer ${this.getToken()}` }});
       this.user.commune_id = v.data.commune_id;
 
-      const c = await axios.get(`https://6mqffthw-8080.asse.devtunnels.ms/commune-by-id/${v.data.commune_id}`, { headers: { Authorization: `Bearer ${this.getToken()}` }});
+      const c = await axios.get(`http://localhost:8080/commune-by-id/${v.data.commune_id}`, { headers: { Authorization: `Bearer ${this.getToken()}` }});
       this.user.district_id = c.data.district_id;
 
-      const d = await axios.get(`https://6mqffthw-8080.asse.devtunnels.ms/district-by-id/${c.data.district_id}`, { headers: { Authorization: `Bearer ${this.getToken()}` }});
+      const d = await axios.get(`http://localhost:8080/district-by-id/${c.data.district_id}`, { headers: { Authorization: `Bearer ${this.getToken()}` }});
       this.user.province_id = d.data.province_id;
 
       await this.fetchDistricts();
@@ -258,7 +258,7 @@ async updateUser() {
  if (this.imageFile) {
         formData.append("image", this.imageFile);
       }
-    await axios.put(`https://6mqffthw-8080.asse.devtunnels.ms/user/${id}`, formData, {
+    await axios.put(`http://localhost:8080/user/${id}`, formData, {
       headers: { 
         Authorization: `Bearer ${this.getToken()}`,
         'Content-Type': 'multipart/form-data'
