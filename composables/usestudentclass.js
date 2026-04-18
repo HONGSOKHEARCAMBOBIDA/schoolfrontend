@@ -39,11 +39,11 @@ export function useStudentClass() {
     );
 
     // Reset form after success
-    form.value = {
-      student_id: "",
-      class_id: "",
-      academic_year_id: "",
-    };
+    // form.value = {
+    //   student_id: "",
+    //   class_id: "",
+    //   academic_year_id: "",
+    // };
 
     // Refresh students
     await fetchStudents();

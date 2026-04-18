@@ -127,50 +127,7 @@
                   <input v-model="editForm.mother_occupation" type="text" class="form-control" />
                 </div>
 
-                
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                <!-- Address -->
+                        <!-- Address -->
                 <div class="col-md-3">
                   <label class="form-label">ខេត្ត</label>
                   <select
@@ -348,7 +305,8 @@
           <div class="input-group" style="max-width: 180px;">
             <input
               v-model="searchName"
-              @input="fetchStudents"
+              @input="currentPage =1 ; fetchStudents()"
+              
               type="text"
               class="form-control flat-input"
               placeholder="ស្វែងរកឈ្មោះ"
@@ -368,7 +326,7 @@
           <div class="input-group" style="max-width: 180px;">
             <select
               v-model="selectedAcademicYear"
-              @change="fetchStudents"
+              @change="currentPage =1; fetchStudents()"
               class="form-select border-1"
               style="box-shadow: none !important;"
             >
@@ -391,7 +349,7 @@
           <div class="input-group" style="max-width: 150px;">
             <select
               v-model="selectedClass"
-              @change="fetchStudents"
+              @change="currentPage =1; fetchStudents()"
               class="form-select border-1"
               style="box-shadow: none !important;"
             >
@@ -414,11 +372,11 @@
           <div class="input-group" style="max-width: 180px;">
             <select
               v-model="selectPoor"
-              @change="fetchStudents"
+              @change="currentPage =1; fetchStudents()"
               class="form-select border-1"
               style="box-shadow: none !important;"
             >
-              <option value="">ស្ថានភាព</option>
+              <option value="">ជីវភាព</option>
               <option :value="1">ក្រីក្រ</option>
               <option :value="0">មិនក្រីក្រ</option>
             </select>
@@ -434,11 +392,11 @@
           <div class="input-group" style="max-width: 150px;">
             <select
               v-model="selectDisability"
-              @change="fetchStudents"
+              @change="currentPage =1; fetchStudents()"
               class="form-select border-1"
               style="box-shadow: none !important;"
             >
-              <option value="">ពិការ</option>
+              <option value="">ពិការភាព</option>
               <option :value="1">ពិការ</option>
               <option :value="0">មិនពិការ</option>
             </select>
@@ -455,12 +413,15 @@
           <div class="input-group" style="max-width: 150px;">
             <select
               v-model="selectsupenstudey"
-              @change="fetchStudents"
+              @change="currentPage =1; fetchStudents()"
               class="form-select border-1"
               style="box-shadow: none !important;"
             >
-              <option value="">មិនផ្អាកការសិក្សា</option>
-              <option :value="2">ផ្អាក</option>
+              <option value="">ស្ថានភាពសិស្ស</option>
+              <option :value="1">កំពុងរៀន</option>
+              <option :value="2">ភ្ជួរឈ្មោះ</option>
+              <option :value="3">ដូរសាលា</option>
+              <option :value="4">ឈប់រៀន</option>
             </select>
             <button 
               v-if="selectsupenstudey" 
@@ -472,45 +433,8 @@
             </button>
           </div>
 
-          <div class="input-group" style="max-width: 130px;">
-            <select
-              v-model="stopsutdy"
-              @change="fetchStudents"
-              class="form-select border-1"
-              style="box-shadow: none !important;"
-            >
-              <option value="">នៅរៀន</option>
-              <option :value="4">ឈប់រៀន</option>
-            </select>
-            <button 
-              v-if="stopsutdy" 
-              class="btn btn-sm px-2" 
-              type="button" 
-              @click="stopsutdy = ''; fetchStudents()"
-            >
-              ✕
-            </button>
-          </div>
 
-          <div class="input-group" style="max-width: 130px;">
-            <select
-              v-model="changeschool"
-              @change="fetchStudents"
-              class="form-select border-1"
-              style="box-shadow: none !important;"
-            >
-              <option value="">មិនដូរសាលា</option>
-              <option :value="4">ដូរ</option>
-            </select>
-            <button 
-              v-if="changeschool" 
-              class="btn btn-sm px-2" 
-              type="button" 
-              @click="changeschool = ''; fetchStudents()"
-            >
-              ✕
-            </button>
-          </div>
+
 
           <router-link to="/student/student">
             <button class="btn btn-outline-success px-4">
@@ -582,7 +506,7 @@
                 </td>
               </tr>
               <tr v-else v-for="(s, index) in students" :key="s.id">
-                <td>{{ index + 1 }}</td>
+               <td>{{ (currentPage - 1) * limit + index + 1 }}</td>
                 <td class="text-start fw-semibold">{{ s.name }}</td>
                 <td class="text-start fw-semibold">{{ s.academic_name }}</td>
                 <td>{{ formatDate(s.dob) }}</td>
@@ -685,6 +609,30 @@
               </tr>
             </tbody>
           </table>
+          <div class="d-flex justify-content-between align-items-center mt-3 px-3">
+  
+  <button 
+    class="btn btn-outline-primary"
+    :disabled="currentPage === 1"
+    @click="currentPage--; fetchStudents()"
+  >
+    ⬅ Previous
+  </button>
+
+  <span>
+    Page {{ currentPage }} 
+    (Total: {{ total }})
+  </span>
+
+  <button 
+    class="btn btn-outline-primary"
+    :disabled="currentPage * limit >= total"
+    @click="currentPage++; fetchStudents()"
+  >
+    Next ➡
+  </button>
+
+</div>
         </div>
       </div>
     </div>
@@ -737,6 +685,9 @@ import Cookies from "js-cookie";
 export default {
   data() {
     return {
+      currentPage: 1,
+limit: 10,
+total: 0,
       selectedStudent: null,
       students: [],
       searchName: "",
@@ -843,7 +794,7 @@ export default {
         const res = await axios.get("http://localhost:8080/disabilities", {
           headers: { Authorization: `Bearer ${this.getToken()}` },
         });
-        this.disabilities = res.data;
+        this.disabilities = res.data.data;
       } catch (err) {
         console.error(err);
       }
@@ -912,33 +863,40 @@ export default {
         console.error(err);
       }
     },
-    async fetchStudents() {
-      try {
-        this.loading = true;
-        this.students = [];
+async fetchStudents() {
+  try {
+    this.loading = true;
+    this.students = [];
 
-        const res = await axios.get("http://localhost:8080/viewstudent", {
-          headers: { Authorization: `Bearer ${this.getToken()}` },
-          params: {
-            name: this.searchName,
-            academic_year_id: this.selectedAcademicYear,
-            class_id: this.selectedClass,
-            is_poor: this.selectPoor,
-            is_disability: this.selectDisability,
-            SuspendStudy: this.selectsupenstudey,
-            stopstudy: this.stopsutdy,
-            changeschool: this.changeschool
-          },
-        });
+    const res = await axios.get("http://localhost:8080/viewstudent", {
+      headers: { Authorization: `Bearer ${this.getToken()}` },
+      params: {
+        page: this.currentPage,   // ✅ ADD
+        limit: this.limit,        // ✅ ADD
 
-        this.students = res.data.students;
-      } catch (err) {
-        console.error(err);
-        this.showError("មិនអាចទាញយកសិស្សបាន 🥵");
-      } finally {
-        this.loading = false;
-      }
-    },
+        name: this.searchName,
+        academic_year_id: this.selectedAcademicYear,
+        class_id: this.selectedClass,
+        is_poor: this.selectPoor,
+        is_disability: this.selectDisability,
+        SuspendStudy: this.selectsupenstudey,
+        stopstudy: this.stopsutdy,
+        changeschool: this.changeschool
+      },
+    });
+
+    this.students = res.data.students;
+
+    // ✅ get pagination from backend
+    this.total = res.data.pagination.total;
+
+  } catch (err) {
+    console.error(err);
+    this.showError("មិនអាចទាញយកសិស្សបាន 🥵");
+  } finally {
+    this.loading = false;
+  }
+},
 
     async comebacktostudy(id) {
       try {
@@ -1071,8 +1029,8 @@ async updateStudent() {
       dob: this.editForm.dob,
       gender: this.editForm.gender,
       is_poor: this.editForm.is_poor,
-      isdisability: this.editForm.is_disability,  // Note: backend uses "isdisability" not "is_disability"
-      disability_ids: this.editForm.disability_ids || [],  // Backend expects "disability_ids"
+      is_disability: this.editForm.is_disability,  // Note: backend uses "isdisability" not "is_disability"
+      disability_id: this.editForm.disability_ids || [],  // Backend expects "disability_ids"
       phone: this.editForm.phone,
       mother_name: this.editForm.mother_name,  // Backend uses "mother_name"
       father_name: this.editForm.father_name,  // Backend uses "father_name"

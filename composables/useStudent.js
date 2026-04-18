@@ -8,6 +8,7 @@ export function useStudent() {
   const selectedClass = ref("");
   const selectPoor = ref("");
   const selectDisability = ref("");
+  const selectActive = ref("")
   const loading = ref(false);
    const student = reactive({
     id: 0,
@@ -110,6 +111,7 @@ export function useStudent() {
         class_id: selectedClass.value,
         is_poor: selectPoor.value,
         is_disability: selectDisability.value,
+        SuspendStudy: selectActive.value
       });
       students.value = res.data.students || [];
     } catch (err) {
@@ -122,13 +124,14 @@ export function useStudent() {
 
   // ✅ Watch all filter refs as an array
   watch(
-    [searchName, selectedAcademicYear, selectedClass, selectPoor, selectDisability],
+    [searchName, selectedAcademicYear, selectedClass, selectPoor, selectDisability,selectActive],
     () => {
       fetchStudents();
     }
   );
 
   return {
+    selectActive,
     students,
     searchName,
     selectedAcademicYear,

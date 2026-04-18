@@ -19,6 +19,28 @@
   </option>
 </select>
 
+          <div class="input-group" style="max-width: 150px;">
+            <select
+              v-model="selectActive"
+             
+              class="form-select border-1"
+              style="box-shadow: none !important;"
+            >
+              <option value="">ស្ថានភាពសិស្ស</option>
+              <option :value="1">កំពុងរៀន</option>
+              <option :value="2">ភ្ជួរឈ្មោះ</option>
+              <option :value="3">ដូរសាលា</option>
+              <option :value="4">ឈប់រៀន</option>
+            </select>
+            <button 
+              v-if="selectActive" 
+              class="btn btn-sm px-2" 
+              type="button" 
+              @click="selectActive = ''; "
+            >
+              ✕
+            </button>
+          </div>
 
 
       </div>
@@ -77,6 +99,7 @@
               <th>លេខទូរស័ព្ទ</th>
               <th>ថ្នាក់</th>
               <th>ឆ្នាំសិក្សា</th>
+              <th>ស្ថានភាព</th>
               <th>ឪពុក</th>
               <th>ម្ដាយ</th>
             </tr>
@@ -95,6 +118,9 @@
               <td>{{ s.phone }}</td>
               <td>{{ s.class_name }}</td>
               <td>{{ s.academic_name }}</td>
+              <td>                  <span>
+                    {{ statusText[s.student_class_is_active] || 'មិនស្គាល់' }}
+                  </span></td>
               <td>{{ s.father_name }}</td>
               <td>{{ s.mother_name }}</td>
             </tr>
@@ -111,15 +137,22 @@ import { useStudent } from "~/composables/useStudent";
 import { useclass, useAcademic } from "#imports";
 import * as XLSX from "xlsx";
 
-const { students, fetchStudents, selectedAcademicYear, selectedClass } = useStudent();
+const { students, fetchStudents, selectedAcademicYear, selectedClass,selectActive } = useStudent();
 const { fetchClasses, classes } = useclass();
 const { fetchAcademicYears, academicYears } = useAcademic();
-
+const statusText = {
+  0: 'ឡើងថ្នាក់',
+  1: 'នៅរៀន',
+  2: 'ភ្ជួរឈ្មោះ',
+  3: 'ដូរសាលា',
+  4: 'ឈប់រៀន',
+};
 const formatDate = (dateStr) => {
   if (!dateStr) return "";
   const date = new Date(dateStr);
   return `${String(date.getDate()).padStart(2, "0")}-${String(date.getMonth() + 1).padStart(2, "0")}-${date.getFullYear()}`;
 };
+
 
 const selectAcademic = (academic) => {
   selectedAcademicYear.value = academic;
@@ -165,7 +198,7 @@ const exportToExcel = () => {
 onMounted(() => {
   fetchAcademicYears();
   fetchClasses();
-  fetchStudents();
+
 });
 </script>
 
