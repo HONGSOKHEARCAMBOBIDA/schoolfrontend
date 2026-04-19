@@ -13,7 +13,7 @@
         <select v-model="selectedAcademicYear" @change="fetchScores"
                 class="form-select shadow-sm "
                 style="width: 180px;">
-          <option value="">📅 ឆ្នាំសិក្សា</option>
+          <option value="">ឆ្នាំសិក្សា</option>
           <option v-for="year in academicYears" :key="year.id" :value="year.id">
             {{ year.year_name }}
           </option>
@@ -23,7 +23,7 @@
         <select v-model="selectedClass" @change="onClassChange"
                 class="form-select shadow-sm "
                 style="width: 180px;">
-          <option value="">🏫 ថ្នាក់</option>
+          <option value="">ថ្នាក់</option>
           <option v-for="cls in classes" :key="cls.id" :value="cls.id">
             {{ cls.name }}
           </option>
@@ -31,7 +31,7 @@
                 <select v-model="selecttypeexam" @change="fetchScores"
                 class="form-select shadow-sm "
                 style="width: 220px;">
-          <option value="">📊 ប្រចាំខែ/ឆមាស</option>
+          <option value="">ប្រចាំខែ/ឆមាស</option>
           <option v-for="tx in tyeexam" :key="tx.id" :value="tx.id">
             {{ tx.name }}
           </option>
@@ -90,8 +90,9 @@
     </div>
   </div>
           <h3 class="lefclass">{{ classes.find(c => c.id === selectedClass)?.name || '' }}</h3>
-          <h2 class="school-name mb-4">ចំណាត់ថ្នាក់ប្រឡងប្រចាំខែ
-             <span v-if="monthRange" class="school-name"> ({{ monthRange }})</span>
+          <h2 class="school-name mb-4">ចំណាត់ថ្នាក់សិស្ស 
+           
+             <span class="school-name mb-4">{{ classes.find(c => c.id === selectedClass)?.name || '' }}</span>
           </h2>
 
           <!-- Scores Table -->
@@ -128,7 +129,7 @@
                   <td>{{ s.grade }}</td>
                 </tr>
                 <tr v-if="!loading && scores.length === 0">
-                  <td colspan="7" class="text-muted py-4">មិនមានពិន្ទុសិស្សនៅឡើយទេ 😢</td>
+                  <td colspan="7" class="text-muted py-4">ជ្រេីសរេីសឆ្នាំសិក្សានិងថ្នាក់រៀន</td>
                 </tr>
               </tbody>
             </table>
@@ -366,7 +367,7 @@ exportToExcel() {
   mounted() {
     this.fetchAcademicYears();
     this.fetchClasses();
-    this.fetchScores();
+  //  this.fetchScores();
     this.fetchtypeexam();
   },
 };
