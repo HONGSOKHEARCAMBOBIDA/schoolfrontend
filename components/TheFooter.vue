@@ -3,7 +3,7 @@
     <div class="container d-flex flex-column flex-md-row justify-content-between align-items-center">
       <!-- Left -->
       <div class="footer-left">
-        <span>&copy; 2025 ប្រព័ន្ធគ្រប់គ្រង សាលាបឋមសិក្សាតាហែន ជំនាន់១</span>
+        <span>&copy; 2026 ប្រព័ន្ធគ្រប់គ្រង សាលាបឋមសិក្សាតាហែន ជំនាន់១</span>
       </div>
 
       <!-- Right -->
