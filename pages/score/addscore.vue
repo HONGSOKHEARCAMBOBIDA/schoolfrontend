@@ -26,46 +26,46 @@
       <!-- Academic Year -->
       <select v-model="selectedAcademicYear" @change="fetchStudents" 
               class="form-select shadow-sm" style="width: 200px;">
-        <option value="">📅 ឆ្នាំសិក្សា</option>
+        <option value="">ឆ្នាំសិក្សា</option>
         <option v-for="year in academicYears" :key="year.id" :value="year.id">{{ year.year_name }}</option>
       </select>
 
       <!-- Class -->
       <select v-model="selectedClass" @change="onClassChange" 
               class="form-select shadow-sm" style="width: 200px;">
-        <option value="">🏫 ថ្នាក់</option>
+        <option value="">ថ្នាក់</option>
         <option v-for="cls in classes" :key="cls.id" :value="cls.id">{{ cls.name }}</option>
       </select>
 
       <!-- Subjects -->
       <select v-model="selectedSubjects" @change="fetchExamComponents" 
               class="form-select shadow-sm" style="width: 200px;">
-        <option value="">📚 មុខវិជ្ជា</option>
+        <option value="">មុខវិជ្ជា</option>
         <option v-for="s in assignedSubjects" :key="s.subject_id" :value="s.subject_id">{{ s.subject_name }}</option>
       </select>
 
       <!-- Exam Component -->
       <select v-model="selectexamcomponent" 
               class="form-select shadow-sm" style="width: 200px;">
-        <option value="">📚 ការប្រឡង</option>
+        <option value="">ការប្រឡង</option>
         <option v-for="cp in examComponents" :key="cp.id" :value="cp.id">{{ cp.name }}</option>
       </select>
 
       <!-- Type Exam -->
       <select v-model="selecttypeexam" 
               class="form-select shadow-sm" style="width: 250px;">
-        <option value="">📚 ប្រចាំខែ/ឆមាស១/ឆមាស២</option>
+        <option value="">ប្រចាំខែ/ឆមាស១/ឆមាស២</option>
         <option v-for="tx in tyeexam" :key="tx.id" :value="tx.id">{{ tx.name }}</option>
       </select>
 
       <!-- Exam Date -->
       <input type="date" v-model="selectedExamDate" 
              class="form-control shadow-sm" style="width: 200px;"
-             placeholder="📅 ថ្ងៃប្រឡង" />
+             placeholder="ថ្ងៃប្រឡង" />
 
       <!-- Submit Button -->
       <button class="btn btn-outline-success" style="width: 245px;" @click="submitScores">
-        💾 បញ្ចូលពិន្ទុ
+        បញ្ចូលពិន្ទុ
       </button>
 
     </div>
@@ -83,12 +83,12 @@
         v-model="searchQuery"
         type="text"
         class="form-control flat-input shadow-sm"
-        placeholder="🔍 ស្វែងរកសិស្សតាមឈ្មោះ..."
+        placeholder="ស្វែងរកសិស្សតាមឈ្មោះ..."
       />
     </div>
 
     <!-- Table -->
-    <div class="flex-grow-1 overflow-auto p-3">
+    <div class="p-5 table-card">
       <div class="table-responsive h-100">
         <table class="table table-hover align-middle mb-0">
           <thead class="table-primary text-center sticky-top thead">
@@ -226,5 +226,8 @@ export default {
 thead.sticky-top {
   top: 0;
   z-index: 2;
+}
+.table-card {
+  padding: 10px;
 }
 </style>

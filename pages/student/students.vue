@@ -4,13 +4,13 @@
     <div class="login-container">
       <!-- Header & Search -->
       <div class="d-flex justify-content-between align-items-center mb-3">
-        <h3 class="fw-bold text-primary">សិស្សត្រូវបញ្ចូលតាមថ្នាក់</h3>
+        <h3 class="fw-bold ">សិស្សត្រូវបញ្ចូលតាមថ្នាក់</h3>
         <input
           v-model="searchQuery"
           @input="filterStudents"
           type="text"
-          class="form-control w-50 shadow-sm px-3"
-          placeholder="🔍 ស្វែងរកដោយឈ្មោះ..."
+          class="form-control w-50 shadow-sm px-6"
+          placeholder="ស្វែងរកដោយឈ្មោះ..."
         />
       </div>
 
