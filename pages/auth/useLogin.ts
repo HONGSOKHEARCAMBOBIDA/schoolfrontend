@@ -21,6 +21,8 @@ export default function useLogin() {
       const token = useCookie('token')
       const name = useCookie('name')
       const rolename = useCookie('role_name')
+      const profile = useCookie('profile')
+      profile.value = response.data.user.profile
       token.value = response.data.token
       name.value = response.data.user.name
       rolename.value = response.data.user.role_name

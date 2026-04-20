@@ -171,7 +171,13 @@
 
         <!-- User info (desktop) -->
         <div class="user-info d-none d-lg-block">
-          <i class="bi bi-person-circle me-1"></i>
+            <img
+    :src="`http://localhost:8080/images/${profile}`"
+   
+    class="rounded-circle"
+    style="width: 40px; height: 40px; object-fit: cover;"
+  />
+
           សូមស្វាគមន៍, {{ name }} ({{ role }})
           <button class="btn btn-sm btn-danger ms-3" @click="logout">
   <i class="bi bi-box-arrow-right me-1"></i> ចាកចេញ
@@ -197,6 +203,8 @@
 import { useCookie, navigateTo } from '#app'
 const name = useCookie('name')
 const role = useCookie('role_name')
+const profile = useCookie('profile')
+const baseURL = 'http://localhost:8080'
 function logout() {
   const token = useCookie('token')
   const name = useCookie('name')

@@ -123,7 +123,7 @@
             </tr>
 
             <tr v-if="!loading && filteredStudents.length === 0">
-              <td colspan="5" class="text-muted py-4">🙅 មិនមានសិស្សត្រូវគ្នា</td>
+              <td colspan="5" class="text-muted py-4">មិនមានទិន្ន័យ</td>
             </tr>
           </tbody>
         </table>

@@ -90,10 +90,11 @@ const validStudents = vm.students.filter(
 
     try {
       await studentService.submitScores(payload);
-      vm.showSuccess("បានរក្សាពិន្ទុសិស្សជោគជ័យ ✅");
+      vm.showSuccess("បានរក្សាពិន្ទុសិស្សជោគជ័យ");
       vm.studentMarks = {};
     } catch(e) {
-      vm.showError(`${e}`);
+        const message = e.response?.data?.error
+        vm.showError(message);
     }
   },
 };
