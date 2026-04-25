@@ -57,7 +57,8 @@ export function useScores() {
     editingScore.value = null
     bootstrap.Modal.getInstance(document.getElementById("editScoreModal")).hide()
   } catch (e) {
-    showError(`មានបញ្ហា: ${e}`)
+    const message = e.response?.data?.error
+    showError(message)
   }
 }
   const setDeleteId = (id) =>{
