@@ -43,7 +43,7 @@
       aria-hidden="true"
     >
       <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
-        <div class="modal-content border-0 shadow-sm ">
+        <div class="modal-content border-0 shadow-sm">
           <div class="modal-header bg-warning text-dark">
             <h5 class="modal-title" id="editStudentModalLabel">
                កែប្រែព័ត៌មានសិស្ស
@@ -127,7 +127,7 @@
                   <input v-model="editForm.mother_occupation" type="text" class="form-control" />
                 </div>
 
-                        <!-- Address -->
+                <!-- Address — resolved via resolveLocationTreeForEdit -->
                 <div class="col-md-3">
                   <label class="form-label">ខេត្ត</label>
                   <select
@@ -146,7 +146,6 @@
                     v-model="editSelectedDistrict"
                     @change="fetchCommunesForEdit"
                     class="form-select"
-                  
                     required
                   >
                     <option value="">ជ្រើសរើសស្រុក</option>
@@ -159,7 +158,6 @@
                     v-model="editSelectedCommune"
                     @change="fetchVillagesForEdit"
                     class="form-select"
-                   
                     required
                   >
                     <option value="">ជ្រើសរើសឃុំ</option>
@@ -178,8 +176,6 @@
                     <option v-for="v in editVillages" :key="v.id" :value="v.id">{{ v.name }}</option>
                   </select>
                 </div>
-
-                <!-- Class Selection -->
 
               </div>
             </div>
@@ -206,8 +202,8 @@
       aria-hidden="true"
     >
       <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
-        <div class="modal-content border-0 shadow-sm ">
-          <div class="modal-header bg-primary text-white ">
+        <div class="modal-content border-0 shadow-sm">
+          <div class="modal-header bg-primary text-white">
             <h5 class="modal-title" id="studentDetailModalLabel">
                សេចក្ដីលម្អិតសិស្ស
             </h5>
@@ -296,7 +292,6 @@
       </div>
     </div>
 
-    <!-- Header -->
     <!-- Filters -->
     <div class="p-3">
       <div class="bg-white p-4 mb-3 card">
@@ -305,8 +300,7 @@
           <div class="input-group" style="max-width: 180px;">
             <input
               v-model="searchName"
-              @input="currentPage =1 ; fetchStudents()"
-              
+              @input="currentPage = 1; fetchStudents()"
               type="text"
               class="form-control flat-input"
               placeholder="ស្វែងរកឈ្មោះ"
@@ -326,7 +320,7 @@
           <div class="input-group" style="max-width: 180px;">
             <select
               v-model="selectedAcademicYear"
-              @change="currentPage =1; fetchStudents()"
+              @change="currentPage = 1; fetchStudents()"
               class="form-select border-1"
               style="box-shadow: none !important;"
             >
@@ -335,10 +329,10 @@
                 {{ year.year_name }}
               </option>
             </select>
-            <button 
-              v-if="selectedAcademicYear" 
-              class="btn btn-outline-danger btn-sm" 
-              type="button" 
+            <button
+              v-if="selectedAcademicYear"
+              class="btn btn-outline-danger btn-sm"
+              type="button"
               @click="selectedAcademicYear = ''; fetchStudents()"
             >
               ✕
@@ -349,7 +343,7 @@
           <div class="input-group" style="max-width: 150px;">
             <select
               v-model="selectedClass"
-              @change="currentPage =1; fetchStudents()"
+              @change="currentPage = 1; fetchStudents()"
               class="form-select border-1"
               style="box-shadow: none !important;"
             >
@@ -358,10 +352,10 @@
                 {{ cls.name }}
               </option>
             </select>
-            <button 
-              v-if="selectedClass" 
+            <button
+              v-if="selectedClass"
               class="btn btn-outline-danger btn-sm"
-              type="button" 
+              type="button"
               @click="selectedClass = ''; fetchStudents()"
             >
               ✕
@@ -372,7 +366,7 @@
           <div class="input-group" style="max-width: 180px;">
             <select
               v-model="selectPoor"
-              @change="currentPage =1; fetchStudents()"
+              @change="currentPage = 1; fetchStudents()"
               class="form-select border-1"
               style="box-shadow: none !important;"
             >
@@ -380,10 +374,12 @@
               <option :value="1">ក្រីក្រ</option>
               <option :value="0">មិនក្រីក្រ</option>
             </select>
-            <button v-if="selectPoor" 
-              class="btn btn-outline-danger btn-sm" 
-              type="button" 
-              @click="selectPoor = ''; fetchStudents()"> 
+            <button
+              v-if="selectPoor !== ''"
+              class="btn btn-outline-danger btn-sm"
+              type="button"
+              @click="selectPoor = ''; fetchStudents()"
+            >
               ✕
             </button>
           </div>
@@ -392,7 +388,7 @@
           <div class="input-group" style="max-width: 150px;">
             <select
               v-model="selectDisability"
-              @change="currentPage =1; fetchStudents()"
+              @change="currentPage = 1; fetchStudents()"
               class="form-select border-1"
               style="box-shadow: none !important;"
             >
@@ -400,20 +396,21 @@
               <option :value="1">ពិការ</option>
               <option :value="0">មិនពិការ</option>
             </select>
-            <button 
-              v-if="selectDisability" 
-              class="btn btn-outline-danger px-2" 
-              type="button" 
+            <button
+              v-if="selectDisability !== ''"
+              class="btn btn-outline-danger px-2"
+              type="button"
               @click="selectDisability = ''; fetchStudents()"
             >
               ✕
             </button>
           </div>
 
+          <!-- Student Status -->
           <div class="input-group" style="max-width: 150px;">
             <select
               v-model="selectsupenstudey"
-              @change="currentPage =1; fetchStudents()"
+              @change="currentPage = 1; fetchStudents()"
               class="form-select border-1"
               style="box-shadow: none !important;"
             >
@@ -423,18 +420,15 @@
               <option :value="3">ដូរសាលា</option>
               <option :value="4">ឈប់រៀន</option>
             </select>
-            <button 
-              v-if="selectsupenstudey" 
-              class="btn btn-sm px-2" 
-              type="button" 
+            <button
+              v-if="selectsupenstudey"
+              class="btn btn-sm px-2"
+              type="button"
               @click="selectsupenstudey = ''; fetchStudents()"
             >
               ✕
             </button>
           </div>
-
-
-
 
           <router-link to="/student/student">
             <button class="btn btn-outline-success px-4">
@@ -445,17 +439,7 @@
           <!-- Reset Button -->
           <button
             class="btn btn-outline-warning ms-auto"
-            @click="
-              searchName = '';
-              selectedAcademicYear = '';
-              selectedClass = '';
-              selectPoor = '';
-              selectDisability = '';
-              selectsupenstudey = '';
-              stopsutdy = '';
-              changeschool = '';
-              fetchStudents();
-            "
+            @click="resetFilters"
           >
             ♻️ កំណត់ឡើងវិញ
           </button>
@@ -506,7 +490,7 @@
                 </td>
               </tr>
               <tr v-else v-for="(s, index) in students" :key="s.id">
-               <td>{{ (currentPage - 1) * limit + index + 1 }}</td>
+                <td>{{ (currentPage - 1) * limit + index + 1 }}</td>
                 <td class="text-start fw-semibold">{{ s.name }}</td>
                 <td class="text-start fw-semibold">{{ s.academic_name }}</td>
                 <td>{{ formatDate(s.dob) }}</td>
@@ -541,19 +525,19 @@
                   </span>
                 </td>
                 <td>
-                    <div v-if="editId !== s.student_class_id">
-    <button class="btn btn-sm btn-outline-warning me-2" @click="startEdit(s)">ដូថ្នាក់</button>
-  </div>
-  <div v-else>
-    <select v-model="editClassID" class="form-select form-select-sm">
-      <option v-for="cls in classes" :key="cls.id" :value="cls.id">{{ cls.name }}</option>
-    </select>
-     <select v-model="editAcademicID" class="form-select form-select-sm">
-      <option v-for="ac in academicYears" :key="ac.id" :value="ac.id">{{ ac.year_name }}</option>
-    </select>
-    <button class="btn btn-sm btn-success me-2" @click="updatestudentclass(s.student_class_id)">រក្សាទុក</button>
-    <button class="btn btn-sm btn-secondary" @click="cancelEdit">បោះបង់</button>
-  </div>
+                  <div v-if="editId !== s.student_class_id">
+                    <button class="btn btn-sm btn-outline-warning me-2" @click="startEdit(s)">ដូថ្នាក់</button>
+                  </div>
+                  <div v-else>
+                    <select v-model="editClassID" class="form-select form-select-sm">
+                      <option v-for="cls in classes" :key="cls.id" :value="cls.id">{{ cls.name }}</option>
+                    </select>
+                    <select v-model="editAcademicID" class="form-select form-select-sm">
+                      <option v-for="ac in academicYears" :key="ac.id" :value="ac.id">{{ ac.year_name }}</option>
+                    </select>
+                    <button class="btn btn-sm btn-success me-2" @click="updatestudentclass(s.student_class_id)">រក្សាទុក</button>
+                    <button class="btn btn-sm btn-secondary" @click="cancelEdit">បោះបង់</button>
+                  </div>
                 </td>
 
                 <td class="text-start fw-semibold">
@@ -593,12 +577,13 @@
                   >
                     {{ s.is_active === 1 ? 'ដូរសាលា' : 'Activate' }}
                   </button>
+
+                  <!-- Come Back -->
                   <button
-                    class="btn btn-sm ms-2"
-                    :class="s.is_active === 1 ? 'btn-outline-success' : 'btn-outline-success'"
+                    class="btn btn-sm ms-2 btn-outline-success"
                     @click="comebacktostudy(s.student_class_id)"
                   >
-                    {{ s.is_active === 1 ? 'ចូលរៀនវិញ' : 'Activate' }}
+                    ចូលរៀនវិញ
                   </button>
                 </td>
               </tr>
@@ -609,30 +594,26 @@
               </tr>
             </tbody>
           </table>
+
+          <!-- Pagination -->
           <div class="d-flex justify-content-between align-items-center mt-3 px-3">
-  
-  <button 
-    class="btn btn-outline-primary"
-    :disabled="currentPage === 1"
-    @click="currentPage--; fetchStudents()"
-  >
-    ⬅ Previous
-  </button>
+            <button
+              class="btn btn-outline-primary"
+              :disabled="currentPage === 1"
+              @click="currentPage--; fetchStudents()"
+            >
+              ⬅ Previous
+            </button>
+            <span>Page {{ currentPage }} (Total: {{ total }})</span>
+            <button
+              class="btn btn-outline-primary"
+              :disabled="currentPage * limit >= total"
+              @click="currentPage++; fetchStudents()"
+            >
+              Next ➡
+            </button>
+          </div>
 
-  <span>
-    Page {{ currentPage }} 
-    (Total: {{ total }})
-  </span>
-
-  <button 
-    class="btn btn-outline-primary"
-    :disabled="currentPage * limit >= total"
-    @click="currentPage++; fetchStudents()"
-  >
-    Next ➡
-  </button>
-
-</div>
         </div>
       </div>
     </div>
@@ -660,7 +641,6 @@ table td {
   color: #fff;
   z-index: 2;
 }
-
 .flat-input {
   border-radius: 8px !important;
 }
@@ -668,7 +648,6 @@ table td {
   border-radius: 8px !important;
   box-shadow: none !important;
 }
-
 .table-responsive {
   border-radius: 8px;
 }
@@ -686,8 +665,8 @@ export default {
   data() {
     return {
       currentPage: 1,
-limit: 10,
-total: 0,
+      limit: 10,
+      total: 0,
       selectedStudent: null,
       students: [],
       searchName: "",
@@ -737,9 +716,10 @@ total: 0,
         2: 'ភ្ជួរឈ្មោះ',
         3: 'ដូរសាលា',
         4: 'ឈប់រៀន',
-      }
+      },
     };
   },
+
   mounted() {
     this.fetchAcademicYears();
     this.fetchClasses();
@@ -747,18 +727,21 @@ total: 0,
     this.fetchDisabilities();
     this.fetchProvinces();
   },
+
   computed: {
     maleCount() {
       return this.students.filter(s => Number(s.Gender) === 1).length;
     },
     femaleCount() {
       return this.students.filter(s => Number(s.Gender) === 2).length;
-    }
+    },
   },
+
   methods: {
     getToken() {
       return Cookies.get("token");
     },
+
     formatDate(dateStr) {
       if (!dateStr) return '';
       const date = new Date(dateStr);
@@ -767,6 +750,22 @@ total: 0,
       const year = date.getFullYear();
       return `${day}-${month}-${year}`;
     },
+
+    resetFilters() {
+      this.searchName = '';
+      this.selectedAcademicYear = '';
+      this.selectedClass = '';
+      this.selectPoor = '';
+      this.selectDisability = '';
+      this.selectsupenstudey = '';
+      this.stopsutdy = '';
+      this.changeschool = '';
+      this.currentPage = 1;
+      this.fetchStudents();
+    },
+
+    // ─── Fetch Lookups ──────────────────────────────────────────────────────────
+
     async fetchAcademicYears() {
       try {
         const res = await axios.get("http://localhost:8080/viewacademicyear", {
@@ -778,6 +777,7 @@ total: 0,
         this.showError("មិនអាចទាញយកឆ្នាំសិក្សាបាន 🥵");
       }
     },
+
     async fetchClasses() {
       try {
         const res = await axios.get("http://localhost:8080/class", {
@@ -789,6 +789,7 @@ total: 0,
         this.showError("មិនអាចទាញយកថ្នាក់បាន 🥵");
       }
     },
+
     async fetchDisabilities() {
       try {
         const res = await axios.get("http://localhost:8080/disabilities", {
@@ -799,6 +800,7 @@ total: 0,
         console.error(err);
       }
     },
+
     async fetchProvinces() {
       try {
         const res = await axios.get("http://localhost:8080/province", {
@@ -809,6 +811,9 @@ total: 0,
         console.error(err);
       }
     },
+
+    // ─── Edit Modal Address Cascade ─────────────────────────────────────────────
+
     async fetchDistrictsForEdit() {
       if (!this.editSelectedProvince) {
         this.editDistricts = [];
@@ -831,6 +836,7 @@ total: 0,
         console.error(err);
       }
     },
+
     async fetchCommunesForEdit() {
       if (!this.editSelectedDistrict) {
         this.editCommunes = [];
@@ -849,6 +855,7 @@ total: 0,
         console.error(err);
       }
     },
+
     async fetchVillagesForEdit() {
       if (!this.editSelectedCommune) {
         this.editVillages = [];
@@ -863,40 +870,112 @@ total: 0,
         console.error(err);
       }
     },
-async fetchStudents() {
-  try {
-    this.loading = true;
-    this.students = [];
 
-    const res = await axios.get("http://localhost:8080/viewstudent", {
-      headers: { Authorization: `Bearer ${this.getToken()}` },
-      params: {
-        page: this.currentPage,   // ✅ ADD
-        limit: this.limit,        // ✅ ADD
+    // ─── Resolve full Province > District > Commune > Village from village_id ───
+    // Same pattern as resolveLocationTree() in the user update component.
 
-        name: this.searchName,
-        academic_year_id: this.selectedAcademicYear,
-        class_id: this.selectedClass,
-        is_poor: this.selectPoor,
-        is_disability: this.selectDisability,
-        SuspendStudy: this.selectsupenstudey,
-        stopstudy: this.stopsutdy,
-        changeschool: this.changeschool
-      },
-    });
+    async resolveLocationTreeForEdit(village_id) {
+      if (!village_id) return;
+      try {
+        // 1. village → commune_id
+        const vRes = await axios.get(`http://localhost:8080/village-by-id/${village_id}`, {
+          headers: { Authorization: `Bearer ${this.getToken()}` },
+        });
+        const commune_id = vRes.data.commune_id;
+        this.editSelectedCommune = commune_id;
 
-    this.students = res.data.students;
+        // 2. commune → district_id
+        const cRes = await axios.get(`http://localhost:8080/commune-by-id/${commune_id}`, {
+          headers: { Authorization: `Bearer ${this.getToken()}` },
+        });
+        const district_id = cRes.data.district_id;
+        this.editSelectedDistrict = district_id;
 
-    // ✅ get pagination from backend
-    this.total = res.data.pagination.total;
+        // 3. district → province_id
+        const dRes = await axios.get(`http://localhost:8080/district-by-id/${district_id}`, {
+          headers: { Authorization: `Bearer ${this.getToken()}` },
+        });
+        const province_id = dRes.data.province_id;
+        this.editSelectedProvince = province_id;
 
-  } catch (err) {
-    console.error(err);
-    this.showError("មិនអាចទាញយកសិស្សបាន 🥵");
-  } finally {
-    this.loading = false;
-  }
-},
+        // 4. Fetch each dropdown level in order so options are available
+        await this.fetchDistrictsForEditWithValue(province_id);
+        await this.fetchCommunesForEditWithValue(district_id);
+        await this.fetchVillagesForEditWithValue(commune_id);
+
+      } catch (err) {
+        console.error("resolveLocationTreeForEdit error:", err);
+      }
+    },
+
+    // Fetch districts but restore the chosen district_id after clearing
+    async fetchDistrictsForEditWithValue(province_id) {
+      try {
+        const res = await axios.get(`http://localhost:8080/district/${province_id}`, {
+          headers: { Authorization: `Bearer ${this.getToken()}` },
+        });
+        this.editDistricts = res.data;
+      } catch (err) {
+        console.error(err);
+      }
+    },
+
+    // Fetch communes but restore the chosen commune_id after clearing
+    async fetchCommunesForEditWithValue(district_id) {
+      try {
+        const res = await axios.get(`http://localhost:8080/communce/${district_id}`, {
+          headers: { Authorization: `Bearer ${this.getToken()}` },
+        });
+        this.editCommunes = res.data;
+      } catch (err) {
+        console.error(err);
+      }
+    },
+
+    // Fetch villages but restore the chosen village_id after clearing
+    async fetchVillagesForEditWithValue(commune_id) {
+      try {
+        const res = await axios.get(`http://localhost:8080/village/${commune_id}`, {
+          headers: { Authorization: `Bearer ${this.getToken()}` },
+        });
+        this.editVillages = res.data;
+      } catch (err) {
+        console.error(err);
+      }
+    },
+
+    // ─── Fetch Students ──────────────────────────────────────────────────────────
+
+    async fetchStudents() {
+      try {
+        this.loading = true;
+        this.students = [];
+        const res = await axios.get("http://localhost:8080/viewstudent", {
+          headers: { Authorization: `Bearer ${this.getToken()}` },
+          params: {
+            page: this.currentPage,
+            limit: this.limit,
+            name: this.searchName,
+            academic_year_id: this.selectedAcademicYear,
+            class_id: this.selectedClass,
+            is_poor: this.selectPoor,
+            is_disability: this.selectDisability,
+            SuspendStudy: this.selectsupenstudey,
+            stopstudy: this.stopsutdy,
+            changeschool: this.changeschool,
+          },
+        });
+        this.students = res.data.students;
+        this.total = res.data.pagination.total;
+      } catch (err) {
+        console.error(err);
+        this.showError("មិនអាចទាញយកសិស្សបាន 🥵");
+      } finally {
+        this.loading = false;
+      }
+    },
+
+    // ─── Status Actions ──────────────────────────────────────────────────────────
 
     async comebacktostudy(id) {
       try {
@@ -923,6 +1002,7 @@ async fetchStudents() {
         this.showError("មិនអាចផ្លាស់ប្តូរស្ថានភាពបាន 🥵");
       }
     },
+
     async Suspendstudies(id) {
       try {
         await axios.put(`http://localhost:8080/Suspendstudies/${id}`, {}, {
@@ -935,6 +1015,7 @@ async fetchStudents() {
         this.showError("មិនអាចផ្លាស់ប្តូរស្ថានភាពបាន 🥵");
       }
     },
+
     async Changeschool(id) {
       try {
         await axios.put(`http://localhost:8080/changeschool/${id}`, {}, {
@@ -947,21 +1028,26 @@ async fetchStudents() {
         this.showError("មិនអាចផ្លាស់ប្តូរស្ថានភាពបាន 🥵");
       }
     },
+
+    // ─── Inline Class Edit ───────────────────────────────────────────────────────
+
     startEdit(s) {
       this.editId = s.student_class_id;
       this.editClassID = s.class_id;
       this.editAcademicID = s.academic_year_id;
     },
+
     cancelEdit() {
       this.editId = null;
       this.editClassID = null;
       this.editAcademicID = null;
     },
+
     async updatestudentclass(studentclassid) {
       try {
         await axios.put(
           `http://localhost:8080/updatestudentclass/${studentclassid}`,
-          { class_id: this.editClassID,academic_year_id: this.editAcademicID },
+          { class_id: this.editClassID, academic_year_id: this.editAcademicID },
           { headers: { Authorization: `Bearer ${this.getToken()}` } }
         );
         this.showSuccess("បានកែប្រែថ្នាក់សិស្សជោគជ័យ ✅");
@@ -972,103 +1058,106 @@ async fetchStudents() {
         this.showError("កែប្រែថ្នាក់សិស្សបរាជ័យ 🥵");
       }
     },
+
+    // ─── Student Detail Modal ────────────────────────────────────────────────────
+
     showStudentDetail(student) {
       this.selectedStudent = student;
       const modalEl = new bootstrap.Modal(document.getElementById('studentDetailModal'));
       modalEl.show();
     },
-openEditModal(student) {
-  // Populate edit form with student data
-  this.editForm = {
-    id: student.id,
-    name: student.name || "",
-    dob: student.dob || "",
-    gender: Number(student.Gender) || "",
-    is_poor: student.is_poor !== undefined ? Number(student.is_poor) : "",
-    is_disability: student.is_disability !== undefined ? Number(student.is_disability) : "",
-    disability_ids: student.disabilities ? student.disabilities.map(d => d.id) : [],
-    phone: student.phone || "",
-    father_name: student.father_name || "",
-    father_occupation: student.father_occupation || "",
-    mother_name: student.mother_name || "",
-    mother_occupation: student.mother_occupation || "",
-    village_id: student.village_id || "",
-    class_id: student.class_id || "",
-    academic_year_id: student.academic_year_id || "",
-  };
 
-  // Set address selections based on student's current address
-  this.editSelectedProvince = student.province_id || "";
-  this.editSelectedDistrict = student.district_id || "";
-  this.editSelectedCommune = student.commune_id || "";
+    // ─── Edit Student Modal ──────────────────────────────────────────────────────
 
-  // Fetch dependent data
-  if (this.editSelectedProvince) {
-    this.fetchDistrictsForEdit().then(() => {
-      if (this.editSelectedDistrict) {
-        this.fetchCommunesForEdit().then(() => {
-          if (this.editSelectedCommune) {
-            this.fetchVillagesForEdit();
-          }
-        });
+    openEditModal(student) {
+      // 1. Populate form fields
+      this.editForm = {
+        id: student.id,
+        name: student.name || "",
+        dob: student.dob ? student.dob.split("T")[0] : "",
+        gender: Number(student.Gender) || "",
+        is_poor: student.is_poor !== undefined ? Number(student.is_poor) : "",
+        is_disability: student.is_disability !== undefined ? Number(student.is_disability) : "",
+        disability_ids: student.disabilities ? student.disabilities.map(d => d.id) : [],
+        phone: student.phone || "",
+        father_name: student.father_name || "",
+        father_occupation: student.father_occupation || "",
+        mother_name: student.mother_name || "",
+        mother_occupation: student.mother_occupation || "",
+        village_id: student.village_id || "",
+        class_id: student.class_id || "",
+        academic_year_id: student.academic_year_id || "",
+      };
+
+      // 2. Reset all address dropdowns first
+      this.editSelectedProvince = "";
+      this.editSelectedDistrict = "";
+      this.editSelectedCommune = "";
+      this.editDistricts = [];
+      this.editCommunes = [];
+      this.editVillages = [];
+
+      // 3. Resolve Province > District > Commune > Village from village_id
+      //    (same pattern as resolveLocationTree in the user update component)
+      if (student.village_id) {
+        this.resolveLocationTreeForEdit(student.village_id);
       }
-    });
-  }
 
-  const modalEl = new bootstrap.Modal(document.getElementById('editStudentModal'));
-  modalEl.show();
-},
-// Add this method to your existing component (replace the previous updateStudent method)
-async updateStudent() {
-  this.editLoading = true;
-  try {
-    // Map frontend field names to backend expected field names
-    const payload = {
-      id: this.editForm.id,  // Important: Include ID for update
-      name: this.editForm.name,
-      dob: this.editForm.dob,
-      gender: this.editForm.gender,
-      is_poor: this.editForm.is_poor,
-      is_disability: this.editForm.is_disability,  // Note: backend uses "isdisability" not "is_disability"
-      disability_id: this.editForm.disability_ids || [],  // Backend expects "disability_ids"
-      phone: this.editForm.phone,
-      mother_name: this.editForm.mother_name,  // Backend uses "mother_name"
-      father_name: this.editForm.father_name,  // Backend uses "father_name"
-      mother_occupation: this.editForm.mother_occupation,  // Backend typo: "mothe_occupation"
-      father_occupation: this.editForm.father_occupation,  // Backend typo: "fother_occupation"
-      village_id: this.editForm.village_id,
-      class_id: this.editForm.class_id,
-      academic_year_id: this.editForm.academic_year_id,
-    };
+      // 4. Open modal
+      const modalEl = new bootstrap.Modal(document.getElementById('editStudentModal'));
+      modalEl.show();
+    },
 
-    // Use the same endpoint for both create and update
-    await axios.post(
-      "http://localhost:8080/student",  // Same endpoint as create
-      payload,
-      { headers: { Authorization: `Bearer ${this.getToken()}` } }
-    );
+    async updateStudent() {
+      this.editLoading = true;
+      try {
+        const payload = {
+          id: this.editForm.id,
+          name: this.editForm.name,
+          dob: this.editForm.dob,
+          gender: this.editForm.gender,
+          is_poor: this.editForm.is_poor,
+          is_disability: this.editForm.is_disability,
+          disability_id: this.editForm.disability_ids || [],
+          phone: this.editForm.phone,
+          mother_name: this.editForm.mother_name,
+          father_name: this.editForm.father_name,
+          mother_occupation: this.editForm.mother_occupation,
+          father_occupation: this.editForm.father_occupation,
+          village_id: this.editForm.village_id,
+          class_id: this.editForm.class_id,
+          academic_year_id: this.editForm.academic_year_id,
+        };
 
-    this.showSuccess("បានកែប្រែព័ត៌មានសិស្សជោគជ័យ ✅");
-    
-    // Close modal
-    const modalEl = bootstrap.Modal.getInstance(document.getElementById('editStudentModal'));
-    if (modalEl) modalEl.hide();
-    
-    // Refresh student list
-    this.fetchStudents();
-  } catch (err) {
-    console.error(err);
-    const errorMsg = err.response?.data?.error || "កែប្រែព័ត៌មានសិស្សបរាជ័យ 🥵";
-    this.showError(errorMsg);
-  } finally {
-    this.editLoading = false;
-  }},
+        await axios.post(
+          "http://localhost:8080/student",
+          payload,
+          { headers: { Authorization: `Bearer ${this.getToken()}` } }
+        );
+
+        this.showSuccess("បានកែប្រែព័ត៌មានសិស្សជោគជ័យ ✅");
+
+        const modalEl = bootstrap.Modal.getInstance(document.getElementById('editStudentModal'));
+        if (modalEl) modalEl.hide();
+
+        this.fetchStudents();
+      } catch (err) {
+        console.error(err);
+        const errorMsg = err.response?.data?.error || "កែប្រែព័ត៌មានសិស្សបរាជ័យ 🥵";
+        this.showError(errorMsg);
+      } finally {
+        this.editLoading = false;
+      }
+    },
+
+    // ─── Toast Helpers ───────────────────────────────────────────────────────────
 
     showSuccess(msg) {
       this.toastMessage = msg;
       const toastEl = document.getElementById("successToast");
       new bootstrap.Toast(toastEl, { delay: 3000, autohide: true }).show();
     },
+
     showError(msg) {
       this.toastMessage = msg;
       const toastEl = document.getElementById("errorToast");

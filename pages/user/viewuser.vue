@@ -188,6 +188,12 @@
   >
     <i class="bi bi-pencil-square"></i> កែប្រែ
   </NuxtLink>
+                 <button
+  class="btn btn-sm btn-secondary me-2"
+  @click="openChangePassword(user)"
+>
+  <i class="bi bi-key"></i> ប្ដូរពាក្យសម្ងាត់
+</button>
                       <button
                         class="btn btn-sm me-2"
                         :class="user.is_active ? 'btn-danger' : 'btn-success'"
@@ -224,6 +230,31 @@
     </div>
 
 </div>
+<!-- Change Password Modal -->
+<div class="modal fade" id="changePasswordModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header bg-primary text-white">
+        <h5 class="modal-title">ប្ដូរពាក្យសម្ងាត់</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <div class="mb-3">
+          <label class="form-label">ពាក្យសម្ងាត់ថ្មី</label>
+          <input type="password" v-model="passwordForm.newPassword" class="form-control" />
+        </div>
+        <div class="mb-3">
+          <label class="form-label">បញ្ជាក់ពាក្យសម្ងាត់ថ្មី</label>
+          <input type="password" v-model="passwordForm.confirmPassword" class="form-control" />
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">បោះបង់</button>
+        <button type="button" class="btn btn-primary" @click="submitChangePassword">រក្សាទុក</button>
+      </div>
+    </div>
+  </div>
+</div>
   </div>
 </template>
 
@@ -254,6 +285,11 @@ export default {
       filters: { nameKh: "", roleId: "" },
       teacherSubjects: [],
       isLoadingDetail: false,
+      passwordForm: {
+  userId: null,
+  newPassword: "",
+  confirmPassword: "",
+},
     };
   },
   mounted() {
@@ -275,6 +311,36 @@ export default {
     fetchTeacherSubjects(userId) {
       userController.loadTeacherSubjects(this, userId);
     },
+    openChangePassword(user) {
+  this.passwordForm.userId = user.id;
+  this.passwordForm.newPassword = "";
+  this.passwordForm.confirmPassword = "";
+  const modal = new bootstrap.Modal(document.getElementById("changePasswordModal"));
+  modal.show();
+},
+
+async submitChangePassword() {
+  if (!this.passwordForm.newPassword) {
+    this.showToast("សូមបញ្ចូលពាក្យសម្ងាត់ ❌");
+    return;
+  }
+  if (this.passwordForm.newPassword !== this.passwordForm.confirmPassword) {
+    this.showToast("ពាក្យសម្ងាត់មិនត្រូវគ្នាទេ ❌");
+    return;
+  }
+
+  await userController.changePassword(this, this.passwordForm.userId, this.passwordForm.newPassword);
+
+  const modal = bootstrap.Modal.getInstance(document.getElementById("changePasswordModal"));
+  modal.hide();
+},
+
+showToast(message) {
+  this.toastMessage = message;
+  const toastEl = document.getElementById("successToast");
+  const toast = new bootstrap.Toast(toastEl, { delay: 3000, autohide: true });
+  toast.show();
+},
   },
 };
 </script>

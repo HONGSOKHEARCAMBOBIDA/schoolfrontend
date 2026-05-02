@@ -3,7 +3,7 @@ import userservice from "../service/userservice";
 // import roleService from "../service/roleService";
 // // import roleService from "~/composables/role/service/roleService";
 import { roleService } from "~/services/roleService";
-
+import axios from "axios";
 export default {
   async loadUsers(vm) {
     vm.isLoading = true;
@@ -60,4 +60,17 @@ export default {
       vm.isLoadingDetail = false;
     }
   },
+  async changePassword(vm, userId, newPassword) {
+  try {
+    await axios.put(
+      `http://localhost:8080/changepassword/${userId}`,
+      { new_password: newPassword },
+      { headers: { Authorization: `Bearer ${getToken()}` } }
+    );
+    vm.showToast("ប្ដូរពាក្យសម្ងាត់បានជោគជ័យ ✅");
+  } catch (err) {
+    console.error(err);
+    vm.showToast("ប្ដូរពាក្យសម្ងាត់មិនបានទេ ❌");
+  }
+},
 };

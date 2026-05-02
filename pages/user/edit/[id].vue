@@ -22,8 +22,31 @@
       <div class="card shadow-sm rounded-4 p-5">
         <h4 class="mb-4 fw-bold text-center text-primary">កែប្រែអ្នកប្រើប្រាស់</h4>
         <form @submit.prevent="updateUser">
-          <div class="col-md-6">
+       <div class="col-md-6">
   <label class="form-label">រូបភាព</label>
+
+  <!-- Show existing image -->
+  <div v-if="user.image && !imageFile" class="mb-2">
+    <img
+      :src="`http://localhost:8080/images/${user.image}`"
+      alt="Current Image"
+      class="rounded-circle"
+      style="width: 80px; height: 80px; object-fit: cover;"
+    />
+    <p class="text-muted small mt-1">រូបភាពបច្ចុប្បន្ន</p>
+  </div>
+
+  <!-- Show preview of newly selected image -->
+  <div v-if="imagePreview" class="mb-2">
+    <img
+      :src="imagePreview"
+      alt="New Image Preview"
+      class="rounded-circle"
+      style="width: 80px; height: 80px; object-fit: cover;"
+    />
+    <p class="text-muted small mt-1">រូបភាពថ្មី</p>
+  </div>
+
   <input type="file" @change="handleImageUpload" class="form-control" accept="image/*" />
 </div>
 
@@ -43,10 +66,7 @@
               <label class="form-label">លេខអត្តសញ្ញាណប័ណ្ណ</label>
               <input type="text" v-model="user.id_card_number" class="form-control" required />
             </div>
-            <div class="col-md-6">
-              <label class="form-label">ពាក្យសម្ងាត់ (ទំនេរ = មិនប្តូរ)</label>
-              <input type="password" v-model="user.password" class="form-control" placeholder="********" />
-            </div>
+
             <div class="col-md-3">
               <label class="form-label">តួនាទី</label>
               <select v-model="user.role_id" class="form-select" required>
@@ -134,6 +154,8 @@ export default {
   data() {
     return {
       user: {
+        imageFile: null,
+imagePreview: null,  // ← add this
         name_kh: "",
         phone: "",
         id_card_number: "",
@@ -169,9 +191,13 @@ export default {
     getToken() {
       return Cookies.get("token");
     },
- handleImageUpload(e) {
-    this.imageFile = e.target.files[0]; // store selected file
-  },
+handleImageUpload(e) {
+  this.imageFile = e.target.files[0];
+  // Generate preview URL for the new image
+  if (this.imageFile) {
+    this.imagePreview = URL.createObjectURL(this.imageFile);
+  }
+},
     async fetchRoles() {
       const res = await axios.get("http://localhost:8080/role", { headers: { Authorization: `Bearer ${this.getToken()}` }});
       this.roles = res.data;
