@@ -279,7 +279,7 @@ import { useCookie, navigateTo } from '#app'
 import { usePermission } from '~/composables/usePermission'
 import { ref } from 'vue'
 import userController from '~/composables/user/controller/userController'
-
+import { showError,showSuccess } from '~/composables/utils/toast'
 const name = useCookie('name')
 const role = useCookie('role_name')
 const profile = useCookie('profile')
@@ -306,12 +306,15 @@ function logout() {
 }
 async function submitChangePassword() {
   if (!passwordForm.value.newPassword) {
-    showToast("សូមបញ្ចូលពាក្យសម្ងាត់ ❌")
+    showError("សូមបញ្ចូលពាក្យសម្ងាត់ ❌")
     return
   }
-
+if(passwordForm.value.newPassword < 6){
+   showError("ពាក្យសម្ងាត់ត្រូវមានយ៉ាងហោចណាស់ 6 តួអក្សរ ❌")
+    return
+}
   if (passwordForm.value.newPassword !== passwordForm.value.confirmPassword) {
-    showToast("ពាក្យសម្ងាត់មិនត្រូវគ្នាទេ ❌")
+    showError("ពាក្យសម្ងាត់មិនត្រូវគ្នាទេ ❌")
     return
   }
 
@@ -332,7 +335,7 @@ async function submitChangePassword() {
    
 
   } catch (err) {
-    showToast("ប្ដូរពាក្យសម្ងាត់មិនបានទេ ❌")
+    showError("ប្ដូរពាក្យសម្ងាត់មិនបានទេ ❌")
   }
 }
 </script>
