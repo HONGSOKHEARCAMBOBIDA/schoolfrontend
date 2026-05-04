@@ -60,17 +60,18 @@ export default {
       vm.isLoadingDetail = false;
     }
   },
-  async changePassword(vm, userId, newPassword) {
+async changePassword(vm, userId, newPassword) {
   try {
+    const token = useCookie('token').value  // ← get token directly
     await axios.put(
       `http://localhost:8080/changepassword/${userId}`,
       { new_password: newPassword },
-      { headers: { Authorization: `Bearer ${getToken()}` } }
+      { headers: { Authorization: `Bearer ${token}` } }
     );
-    vm.showToast("ប្ដូរពាក្យសម្ងាត់បានជោគជ័យ ✅");
+    // ✅ Don't call vm.showToast here — let the caller handle UI
   } catch (err) {
     console.error(err);
-    vm.showToast("ប្ដូរពាក្យសម្ងាត់មិនបានទេ ❌");
+    throw err  // ✅ Rethrow so the caller can handle the error
   }
 },
 };

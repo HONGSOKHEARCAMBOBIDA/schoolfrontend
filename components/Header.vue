@@ -216,14 +216,14 @@
           />
           <span>សូមស្វាគមន៍, {{ name }} ({{ role }})</span>
           <button class="btn btn-sm btn-danger ms-2" @click="logout">
-            <i class="bi bi-box-arrow-right me-1"></i> ចាកចេញ
+            ចាកចេញ
           </button>
           <button 
   class="btn btn-sm btn-warning ms-2"
   data-bs-toggle="modal"
   data-bs-target="#changePasswordModal"
 >
-  <i class="bi bi-key me-1"></i> ប្ដូរពាក្យសម្ងាត់
+  ប្ដូរពាក្យសម្ងាត់
 </button>
         </div>
 
@@ -279,6 +279,7 @@ import { useCookie, navigateTo } from '#app'
 import { usePermission } from '~/composables/usePermission'
 import { ref } from 'vue'
 import userController from '~/composables/user/controller/userController'
+
 const name = useCookie('name')
 const role = useCookie('role_name')
 const profile = useCookie('profile')
@@ -314,22 +315,25 @@ async function submitChangePassword() {
     return
   }
 
-  await userController.changePassword(
-    null,
-    passwordForm.value.userId,
-    passwordForm.value.newPassword
-  )
+  try {
+    await userController.changePassword(
+      null,
+      passwordForm.value.userId,
+      passwordForm.value.newPassword
+    )
 
-  // ✅ Use getOrCreateInstance instead of getInstance
-  const modal = bootstrap.Modal.getOrCreateInstance(
-    document.getElementById("changePasswordModal")
-  )
-  modal.hide()
+    // ✅ Close modal
+    const closeBtn = document.querySelector('#changePasswordModal [data-bs-dismiss="modal"]')
+    if (closeBtn) closeBtn.click()
 
-  passwordForm.value.newPassword = ""
-  passwordForm.value.confirmPassword = ""
+    passwordForm.value.newPassword = ""
+    passwordForm.value.confirmPassword = ""
 
-  showToast("ប្ដូរពាក្យសម្ងាត់បានជោគជ័យ ✅")
+   
+
+  } catch (err) {
+    showToast("ប្ដូរពាក្យសម្ងាត់មិនបានទេ ❌")
+  }
 }
 </script>
 

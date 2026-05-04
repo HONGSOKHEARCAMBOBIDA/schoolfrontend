@@ -20,9 +20,9 @@
       </div>
 
       <!-- Main Card -->
-      <div class="card shadow-lg border-0 rounded-4">
+      <div class="card  border-0 ">
         <div class="card-body p-4">
-          <h4 class="fw-bold mb-4 text-primary">📘 បន្ថែមមុខវិជ្ជាអោយគ្រូបង្រៀន</h4>
+          <h4 class="fw-bold mb-4 text-primary">បន្ថែមមុខវិជ្ជាអោយគ្រូបង្រៀន</h4>
 
           <!-- Controls -->
           <div class="row g-3 mb-4">
@@ -90,7 +90,7 @@
               </div>
 
               <div v-if="notAssignedSubjectsFiltered.length === 0" class="text-success small">
-                ✅ មុខវិជ្ជាទាំងអស់បានភ្ជាប់រួច
+                មុខវិជ្ជាទាំងអស់បានភ្ជាប់រួច
               </div>
 
               <div v-else class="row g-3">

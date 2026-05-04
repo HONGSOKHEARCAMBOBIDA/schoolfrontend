@@ -1,5 +1,8 @@
 // nuxt.config.ts
 export default defineNuxtConfig({
+  plugins: [
+    '~/plugins/axios.js'
+  ],
   modules: ['@nuxt/ui', 'nuxt-toast','@nuxtjs/tailwindcss'],
     ui: {
     // optional configuration

@@ -18,7 +18,7 @@
 
       <div class="d-flex gap-2">
         <button type="submit" class="btn btn-sm btn-outline-success">
-          <i class="bi bi-check-circle"></i>
+
           {{ editingId ? "កែប្រែ" : "បន្ថែម" }}
         </button>
         <button
@@ -57,7 +57,7 @@
                 class="btn btn-sm btn-outline-primary me-1"
                 @click="editAcademicYear(a)"
               >
-                ✏️
+                កែប្រែ
               </button>
               <button
                 class="btn btn-sm"

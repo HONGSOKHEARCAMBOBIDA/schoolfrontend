@@ -68,11 +68,11 @@ const totalStats = computed(() => {
     totalDisabled: 0
   }
   reports.value.forEach(item => {
-    totals.totalStudents += item.total_students || 0
-    totals.totalMale += item.male || 0
-    totals.totalFemale += item.female || 0
-    totals.totalPoor += item.poor_students || 0
-    totals.totalDisabled += item.disabled_students || 0
+    totals.totalStudents += Number(item.total_students) || 0
+    totals.totalMale     += Number(item.male)           || 0
+    totals.totalFemale   += Number(item.female)         || 0
+    totals.totalPoor     += Number(item.poor_students)  || 0
+    totals.totalDisabled += Number(item.disabled_students) || 0
   })
   return totals
 })
@@ -84,8 +84,8 @@ const exportToExcel = () => {
       item.academic_year, item.class_name, item.total_students, 
       item.male, item.female, item.poor_students, item.disabled_students
     ]),
-    ['សរុប', '', totalStats.totalStudents, totalStats.totalMale, 
-     totalStats.totalFemale, totalStats.totalPoor, totalStats.totalDisabled]
+['សរុប', '', totalStats.value.totalStudents, totalStats.value.totalMale,
+ totalStats.value.totalFemale, totalStats.value.totalPoor, totalStats.value.totalDisabled]
   ]
   const ws = XLSX.utils.aoa_to_sheet(wsData)
   const wb = XLSX.utils.book_new()

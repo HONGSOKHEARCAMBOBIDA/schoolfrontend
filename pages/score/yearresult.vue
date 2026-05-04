@@ -5,12 +5,12 @@
             <div class="card">
                   <div class="p-3 d-flex gap-3 align-items-center">
       <select v-model="selectedAcademicYear" @change="fetchScores" class="form-select form-select-lg shadow-sm" style="flex: 1;">
-        <option value="">📅 ឆ្នាំសិក្សា</option>
+        <option value="">ឆ្នាំសិក្សា</option>
         <option v-for="year in academicYears" :key="year.id" :value="year.id">{{ year.year_name }}</option>
       </select>
 
       <select v-model="selectedClass" @change="fetchScores" class="form-select form-select-lg shadow-sm" style="flex: 1;">
-        <option value="">🏫 ថ្នាក់</option>
+        <option value="">ថ្នាក់</option>
         <option v-for="cls in classes" :key="cls.id" :value="cls.id">{{ cls.name }}</option>
       </select>
     </div>
