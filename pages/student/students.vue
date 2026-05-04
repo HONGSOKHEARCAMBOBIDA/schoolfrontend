@@ -142,7 +142,7 @@ onMounted(() => {
 .login-container {
   border: 1px solid #cbd5e1;
   width: 100%;
-  min-height: 80vh;
+   max-height: 800px;
   padding: 10px 10px;
   border-radius: 0;
   display: flex;

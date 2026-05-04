@@ -441,7 +441,7 @@
             class="btn btn-outline-warning ms-auto"
             @click="resetFilters"
           >
-            ♻️ កំណត់ឡើងវិញ
+          កំណត់ឡើងវិញ
           </button>
 
           <!-- Gender Count -->

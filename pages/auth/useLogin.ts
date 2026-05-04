@@ -18,11 +18,13 @@ export default function useLogin() {
       })
 
       // save token
+      const id = useCookie('id')
       const token = useCookie('token')
       const name = useCookie('name')
       const rolename = useCookie('role_name')
       const profile = useCookie('profile')
       const permissions = useCookie('permissions')
+      id.value = response.data.user.id
       profile.value = response.data.user.profile
       token.value = response.data.token
       name.value = response.data.user.name
@@ -33,9 +35,12 @@ export default function useLogin() {
 
       // ✅ reusable toast
       showSuccess('អ្នកចូលប្រព័ន្ធបានជោគជ័យ')
-    } catch (err) {
-     showError(`មានបញ្ហា ${err}`)
-    } finally {
+    }catch (err: any) {
+  const message =
+    err?.response?.data?.message || "មានបញ្ហា សូមព្យាយាមម្តងទៀត"
+
+  showError(message)
+}finally {
       loading.value = false
     }
   }

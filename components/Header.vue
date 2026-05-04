@@ -27,18 +27,18 @@
           <li class="nav-item dropdown" v-if="canAny('view-role', 'view-user')">
             <a class="nav-link dropdown-toggle" href="#" role="button"
                data-bs-toggle="dropdown" aria-expanded="false">
-              <i class="bi bi-gear me-1"></i> ការកំណត់
+               ការកំណត់
             </a>
             <ul class="dropdown-menu">
               <li v-if="can('view-role')">
                 <NuxtLink class="dropdown-item" to="/role/createrole">
-                  <i class="bi bi-person-badge me-1"></i> តួនាទី
+                  តួនាទី
                 </NuxtLink>
               </li>
               <li><hr class="dropdown-divider" /></li>
               <li v-if="can('view-user')">
                 <NuxtLink class="dropdown-item" to="/user/viewuser">
-                  <i class="bi bi-people me-1"></i> អ្នកប្រើប្រាស់
+                  អ្នកប្រើប្រាស់
                 </NuxtLink>
               </li>
             </ul>
@@ -49,38 +49,38 @@
               v-if="canAny('view-class', 'view-subject', 'view-academicyear', 'view-class-assign-subject', 'view-student')">
             <a class="nav-link dropdown-toggle" href="#" role="button"
                data-bs-toggle="dropdown" aria-expanded="false">
-              <i class="bi bi-box-seam me-1"></i> សាលារៀន
+             សាលារៀន
             </a>
             <ul class="dropdown-menu">
               <li v-if="can('view-class')">
                 <NuxtLink class="dropdown-item" to="/class/classview">
-                  <i class="bi bi-building me-1"></i> ថ្នាក់រៀន
+                  ថ្នាក់រៀន
                 </NuxtLink>
               </li>
               <li v-if="can('view-subject')">
                 <NuxtLink class="dropdown-item" to="/subject/subjectview">
-                  <i class="bi bi-tags me-1"></i> មុខវិជ្ជា
+                  មុខវិជ្ជា
                 </NuxtLink>
               </li>
               <li v-if="can('view-academicyear')">
                 <NuxtLink class="dropdown-item" to="/academicyear/academicyear">
-                  <i class="bi bi-calendar me-1"></i> ឆ្នាំសិក្សា
+                  ឆ្នាំសិក្សា
                 </NuxtLink>
               </li>
               <li v-if="can('view-class-assign-subject')">
                 <NuxtLink class="dropdown-item" to="/classsubject/class-subject">
-                  <i class="bi bi-tags me-1"></i> ចាប់មុខវិជ្ជាដាក់ថ្នាក់
+                 ចាប់មុខវិជ្ជាដាក់ថ្នាក់
                 </NuxtLink>
               </li>
               <li><hr class="dropdown-divider" /></li>
               <li v-if="can('view-student')">
                 <NuxtLink class="dropdown-item" to="/student/studentview">
-                  <i class="bi bi-person me-1"></i> សិស្ស
+                  សិស្ស
                 </NuxtLink>
               </li>
               <li v-if="can('view-student')">
                 <NuxtLink class="dropdown-item" to="/student/studentlist">
-                  <i class="bi bi-person-list me-1"></i> របាយការណ៍សិស្ស
+                  របាយការណ៍សិស្ស
                 </NuxtLink>
               </li>
             </ul>
@@ -91,57 +91,57 @@
               v-if="canAny('view-type-exam', 'assign-student-to-class', 'view-teacher-subject', 'update-status-class-teacher', 'add-score', 'view-score', 'promote-student', 'view-promote')">
             <a class="nav-link dropdown-toggle" href="#" role="button"
                data-bs-toggle="dropdown" aria-expanded="false">
-              <i class="bi bi-grid me-1"></i> ការគ្រប់គ្រងសាលា
+             ការគ្រប់គ្រងសាលា
             </a>
             <ul class="dropdown-menu">
               <li v-if="can('view-type-exam')">
                 <NuxtLink class="dropdown-item" to="/examcomponent/createexamcomponent">
-                  <i class="bi bi-clipboard me-1"></i> ប្រភេទការប្រលង
+                  ប្រភេទការប្រលង
                 </NuxtLink>
               </li>
               <li v-if="can('assign-student-to-class')">
                 <NuxtLink class="dropdown-item" to="/student/students">
-                  <i class="bi bi-people me-1"></i> បញ្ចូលសិស្សទៅតាមថ្នាក់
+                  បញ្ចូលសិស្សទៅតាមថ្នាក់
                 </NuxtLink>
               </li>
               <li v-if="can('view-teacher-subject')">
                 <NuxtLink class="dropdown-item" to="/teachersubject/teachersubject">
-                  <i class="bi bi-person-badge me-1"></i> មុខវិជ្ជាដែលគ្រូបានបង្រៀន
+                មុខវិជ្ជាដែលគ្រូបានបង្រៀន
                 </NuxtLink>
               </li>
               <li v-if="can('update-status-class-teacher')">
                 <NuxtLink class="dropdown-item" to="/classteacher/classteacher">
-                  <i class="bi bi-person-badge me-1"></i> បន្ថែមថ្នាក់អោយគ្រូគ្រប់គ្រង
+               បន្ថែមថ្នាក់អោយគ្រូគ្រប់គ្រង
                 </NuxtLink>
               </li>
               <li v-if="can('add-score')">
                 <NuxtLink class="dropdown-item" to="/score/addscore">
-                  <i class="bi bi-pencil-square me-1"></i> ដាក់ពិន្ទុសិស្ស
+                 ដាក់ពិន្ទុសិស្ស
                 </NuxtLink>
               </li>
               <li v-if="can('view-score')">
                 <NuxtLink class="dropdown-item" to="/score/scoreview">
-                  <i class="bi bi-bar-chart me-1"></i> របាយការណ៍ពិន្ទុសិស្ស
+                  របាយការណ៍ពិន្ទុសិស្ស
                 </NuxtLink>
               </li>
               <li v-if="can('view-score')">
                 <NuxtLink class="dropdown-item" to="/score/score">
-                  <i class="bi bi-list-ol me-1"></i> ចំណាត់ថ្នាក់សិស្ស
+                 ចំណាត់ថ្នាក់សិស្ស
                 </NuxtLink>
               </li>
               <li v-if="can('promote-student')">
                 <NuxtLink class="dropdown-item" to="/promote/promote">
-                  <i class="bi bi-arrow-up-circle me-1"></i> ដំឡើងថ្នាក់សិស្ស
+                ដំឡើងថ្នាក់សិស្ស
                 </NuxtLink>
               </li>
               <li v-if="can('view-promote')">
                 <NuxtLink class="dropdown-item" to="/promote/promoteview">
-                  <i class="bi bi-clock-history me-1"></i> ប្រវត្តដំឡើងថ្នាក់សិស្ស
+                 ប្រវត្តដំឡើងថ្នាក់សិស្ស
                 </NuxtLink>
               </li>
               <li v-if="can('view-score')">
                 <NuxtLink class="dropdown-item" to="/score/yearresult">
-                  <i class="bi bi-clock-history me-1"></i> លទ្ធិផលប្រចាំឆ្នាំ
+                លទ្ធិផលប្រចាំឆ្នាំ
                 </NuxtLink>
               </li>
             </ul>
@@ -218,6 +218,13 @@
           <button class="btn btn-sm btn-danger ms-2" @click="logout">
             <i class="bi bi-box-arrow-right me-1"></i> ចាកចេញ
           </button>
+          <button 
+  class="btn btn-sm btn-warning ms-2"
+  data-bs-toggle="modal"
+  data-bs-target="#changePasswordModal"
+>
+  <i class="bi bi-key me-1"></i> ប្ដូរពាក្យសម្ងាត់
+</button>
         </div>
 
         <!-- User info (mobile) -->
@@ -238,17 +245,55 @@
       </div>
     </div>
   </nav>
+  <div class="modal fade" id="changePasswordModal" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header bg-primary text-white">
+        <h5 class="modal-title">ប្ដូរពាក្យសម្ងាត់</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+
+      <div class="modal-body">
+        <div class="mb-3">
+          <label>ពាក្យសម្ងាត់ថ្មី</label>
+          <input type="password" v-model="passwordForm.newPassword" class="form-control"/>
+        </div>
+
+        <div class="mb-3">
+          <label>បញ្ជាក់ពាក្យសម្ងាត់ថ្មី</label>
+          <input type="password" v-model="passwordForm.confirmPassword" class="form-control"/>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn btn-secondary" data-bs-dismiss="modal">បោះបង់</button>
+        <button class="btn btn-primary" @click="submitChangePassword">រក្សាទុក</button>
+      </div>
+    </div>
+  </div>
+</div>
 </template>
 
 <script setup>
 import { useCookie, navigateTo } from '#app'
 import { usePermission } from '~/composables/usePermission'
-
+import { ref } from 'vue'
+import userController from '~/composables/user/controller/userController'
 const name = useCookie('name')
 const role = useCookie('role_name')
 const profile = useCookie('profile')
 
 const { can, canAny } = usePermission()
+function showToast(message) {
+  alert(message) // or replace with a proper Bootstrap toast if you add one to the navbar template
+}
+const userId = useCookie('id')
+
+const passwordForm = ref({
+  userId: userId.value,
+  newPassword: "",
+  confirmPassword: "",
+})
 
 function logout() {
   useCookie('token').value = null
@@ -257,6 +302,34 @@ function logout() {
   useCookie('profile').value = null
   useCookie('permissions').value = null
   navigateTo('/login')
+}
+async function submitChangePassword() {
+  if (!passwordForm.value.newPassword) {
+    showToast("សូមបញ្ចូលពាក្យសម្ងាត់ ❌")
+    return
+  }
+
+  if (passwordForm.value.newPassword !== passwordForm.value.confirmPassword) {
+    showToast("ពាក្យសម្ងាត់មិនត្រូវគ្នាទេ ❌")
+    return
+  }
+
+  await userController.changePassword(
+    null,
+    passwordForm.value.userId,
+    passwordForm.value.newPassword
+  )
+
+  // ✅ Use getOrCreateInstance instead of getInstance
+  const modal = bootstrap.Modal.getOrCreateInstance(
+    document.getElementById("changePasswordModal")
+  )
+  modal.hide()
+
+  passwordForm.value.newPassword = ""
+  passwordForm.value.confirmPassword = ""
+
+  showToast("ប្ដូរពាក្យសម្ងាត់បានជោគជ័យ ✅")
 }
 </script>
 

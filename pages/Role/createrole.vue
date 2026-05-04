@@ -91,6 +91,7 @@
                       <th scope="col">លេខកូដ</th>
                       <th scope="col">ឈ្មោះ</th>
                       <th scope="col">ស្ថានភាព</th>
+                      <th scope="col">ចំនូនអ្នកប្រេីប្រាស់</th>
                       <th scope="col" class="text-center">សកម្មភាព</th>
                     </tr>
                   </thead>
@@ -106,6 +107,7 @@
                           {{ r.is_active ? "សកម្ម" : "អសកម្ម" }}
                         </span>
                       </td>
+                       <td class="fw-semibold">{{ r.count_user }}</td>
                       <td class="text-center">
                         <!-- Edit button -->
                         <button

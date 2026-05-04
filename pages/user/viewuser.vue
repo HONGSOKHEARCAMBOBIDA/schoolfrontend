@@ -231,7 +231,7 @@
 
 </div>
 <!-- Change Password Modal -->
-<div class="modal fade" id="changePasswordModal" tabindex="-1" aria-hidden="true">
+<div class="modal fade" id="changePasswordModal1" tabindex="-1" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header bg-primary text-white">
@@ -315,7 +315,7 @@ export default {
   this.passwordForm.userId = user.id;
   this.passwordForm.newPassword = "";
   this.passwordForm.confirmPassword = "";
-  const modal = new bootstrap.Modal(document.getElementById("changePasswordModal"));
+  const modal = new bootstrap.Modal(document.getElementById("changePasswordModal1"));
   modal.show();
 },
 
@@ -331,7 +331,7 @@ async submitChangePassword() {
 
   await userController.changePassword(this, this.passwordForm.userId, this.passwordForm.newPassword);
 
-  const modal = bootstrap.Modal.getInstance(document.getElementById("changePasswordModal"));
+  const modal = bootstrap.Modal.getInstance(document.getElementById("changePasswordModal1"));
   modal.hide();
 },
 

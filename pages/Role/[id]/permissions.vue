@@ -5,8 +5,8 @@
 <div
   class="d-flex justify-content-between align-items-center mb-4 px-3 py-2 shadow-sm bg-white"
 >
-  <h3 class="fw-bold text-primary mb-0">
-    <i class="bi bi-shield-lock me-2"></i> ការគ្រប់គ្រងសិទ្ធិ
+  <h3 class="fw-bold  mb-0">
+     ការគ្រប់គ្រងសិទ្ធិ
   </h3>
 
   <div class="d-flex gap-2">
@@ -37,9 +37,17 @@
       <div class="card-body p-4 position-relative">
         <div class="table-responsive">
             <div class="table-container">
+              <div class="mb-3">
+  <input
+    v-model="search"
+    type="text"
+    class="form-control"
+    placeholder="ស្វែងរកតាមឈ្មោះ ឬ ឈ្មោះបង្ហាញ..."
+  />
+</div>
                 <table class="table table-hover align-middle">
             <thead class="table-primary">
-              <tr>
+              <tr >
                 <th scope="col" class="text-start">ID</th>
                 <th scope="col">ឈ្មោះសិទ្ធិ</th>
                 <th scope="col">ឈ្មោះបង្ហាញ</th>
@@ -48,7 +56,7 @@
             </thead>
             <tbody>
               <tr
-                v-for="p in permissions"
+               v-for="p in filteredPermissions"
                 :key="p.id"
                 class="hover-row"
               >
@@ -85,10 +93,10 @@
 import { useRoute } from "vue-router";
 import { onMounted } from "vue";
 import { useRolePermission } from "~/composables/rolehaspermission/controller/rolehaspermission";
-
+import { ref, computed } from "vue";
 const route = useRoute();
 const roleId = Number(route.params.id);
-
+const search = ref("");
 const {
   permissions,
   loading,
@@ -99,6 +107,18 @@ const {
 } = useRolePermission(roleId);
 
 onMounted(fetchPermissions);
+const filteredPermissions = computed(() => {
+  if (!search.value) return permissions.value;
+
+  return permissions.value.filter((p) => {
+    const keyword = search.value.toLowerCase();
+
+    return (
+      p.name?.toLowerCase().includes(keyword) ||
+      p.display_name?.toLowerCase().includes(keyword)
+    );
+  });
+});
 </script>
 
 <style scoped>
@@ -133,10 +153,16 @@ onMounted(fetchPermissions);
 * {
   font-family: 'Kantumruy Pro', sans-serif;
 }
+.table-container {
+  max-height: 700px;   /* or whatever height you want */
+  overflow-y: auto;
+}
 .table-container thead th {
   position: sticky;
   top: 0;
-  z-index: 2;
-  background: #f8f9fa;
+  z-index: 10;              /* must be higher than tbody */
+  background-color: #3664aa; /* solid background */
+  color: #fff;              /* text visible */
+  box-shadow: 0 2px 2px rgba(0,0,0,0.05); /* optional */
 }
 </style>
