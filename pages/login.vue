@@ -46,6 +46,9 @@
 
 <script setup lang="ts">
 import useLogin from './auth/useLogin';
+definePageMeta({
+  layout: 'blank'
+});
 const {
    phone, 
    password, 

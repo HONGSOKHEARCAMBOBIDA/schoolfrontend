@@ -83,7 +83,7 @@ const fetchPromote = async () => {
         selectedAcademicYear.value
       );
       showSuccess("តំឡេីងថ្នាក់សិស្សបានជោគជ័យ");
-      fetchScore(); // refresh the list
+     // fetchScore(); // refresh the list
     } catch (err) {
       
       showError(`${e}`);

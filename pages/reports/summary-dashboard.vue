@@ -2,7 +2,7 @@
   <div class=" mt-5 p-4">
     <div class="row">
       <div class="col-12 mb-4">
-        <h3 class="text-center text-primary"><i class="bi  me-2"></i>សង្ខេបទិន្ន័យ</h3>
+        <h3 class="text-center text-primary"><i class="bi  me-2"></i>ផ្ទាំងសង្ខេបទូទៅ</h3>
       </div>
       
       <!-- Summary Cards -->

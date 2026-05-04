@@ -95,9 +95,10 @@
             <tr>
               <th>ល.រ</th>
               <th class="text-start">ឈ្មោះ</th>
+               <th>ពិន្ទុ</th>
               <th>ថ្នាក់</th>
               <th>ឆ្នាំសិក្សា</th>
-              <th>ពិន្ទុ</th>
+             
             </tr>
           </thead>
           <tbody class="text-center">
@@ -108,9 +109,7 @@
             <tr v-else v-for="(s, index) in filteredStudents" :key="s.id">
               <td>{{ index + 1 }}</td>
               <td class="text-start fw-semibold">{{ s.student_name }}</td>
-              <td>{{ s.class_name }}</td>
-              <td>{{ s.academic_year_name }}</td>
-              <td>
+                            <td>
                 <input 
                   type="number" 
                   class="form-control flat-input" 
@@ -120,6 +119,9 @@
                   max="100"
                 />
               </td>
+              <td>{{ s.class_name }}</td>
+              <td>{{ s.academic_year_name }}</td>
+
             </tr>
 
             <tr v-if="!loading && filteredStudents.length === 0">
@@ -142,6 +144,7 @@ export default {
       students: [],
       searchQuery: "",
       studentMarks: {},
+      originalMarks: {},
       selectedAcademicYear: "",
       selectedClass: "",
       selectedSubjects: "",
@@ -155,6 +158,7 @@ export default {
       toastMessage: "",
       loading: false,
       selectedExamDate: "",
+      hasUnsavedChanges: false,
     };
   },
   computed: {
@@ -165,13 +169,44 @@ export default {
       );
     },
   },
+    watch: {
+    studentMarks: {
+      deep: true,
+      handler(newVal) {
+        const hasAnyScore = Object.values(newVal).some(
+          v => v !== null && v !== undefined && v !== ""
+        );
+        this.hasUnsavedChanges = hasAnyScore;
+      },
+    },
+  },
   mounted() {
     studentController.loadAcademicYears(this);
     studentController.loadClasses(this);
     // studentController.loadStudents(this);
     studentController.loadTypeExam(this);
+    window.addEventListener("beforeunload", this.handleBeforeUnload);
+  },
+    beforeUnmount() {
+    window.removeEventListener("beforeunload", this.handleBeforeUnload);
+  },
+  beforeRouteLeave(to, from, next) {
+    if (this.hasUnsavedChanges) {
+      const confirmed = window.confirm(
+        "អ្នកមានពិន្ទុដែលមិនទាន់បានរក្សាទុក។ តើអ្នកចង់ចាកចេញមែនទេ?"
+      );
+      confirmed ? next() : next(false);
+    } else {
+      next();
+    }
   },
   methods: {
+      handleBeforeUnload(e) {
+      if (this.hasUnsavedChanges) {
+        e.preventDefault();
+        e.returnValue = ""; // Required for Chrome to show the dialog
+      }
+    },  
     onClassChange() {
       studentController.loadSubjects(this);
     },

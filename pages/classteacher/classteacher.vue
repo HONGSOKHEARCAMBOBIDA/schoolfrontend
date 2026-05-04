@@ -9,7 +9,7 @@
   @input="filterTeachers"
   type="text"
   class="form-control w-50 shadow-sm px-3 flat-input"
-  placeholder="🔍 ស្វែងរកដោយឈ្មោះ..."
+  placeholder="ស្វែងរកដោយឈ្មោះ..."
 />
     </div>
 

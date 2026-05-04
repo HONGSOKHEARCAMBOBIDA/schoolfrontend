@@ -22,11 +22,12 @@ export default function useLogin() {
       const name = useCookie('name')
       const rolename = useCookie('role_name')
       const profile = useCookie('profile')
+      const permissions = useCookie('permissions')
       profile.value = response.data.user.profile
       token.value = response.data.token
       name.value = response.data.user.name
       rolename.value = response.data.user.role_name
-
+      permissions.value = response.data.user.permission.map((p: any) => p.name)
       // navigate
       navigateTo('/')
 

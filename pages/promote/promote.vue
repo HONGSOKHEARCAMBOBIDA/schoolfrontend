@@ -33,6 +33,14 @@
                 </option>
               </select>
             </div>
+            <div class="col-md-2">
+  <select v-model="selectedPromoteClass" @change="applyClassToAll" class="form-select shadow-sm">
+    <option value="">ជ្រើសថ្នាក់ត្រូវតំឡើង</option>
+    <option v-for="cls in classes" :key="cls.id" :value="cls.id">
+      {{ cls.name }}
+    </option>
+  </select>
+</div>
           </div>
         </div>
       </div>
@@ -88,9 +96,17 @@
                         </ul>
                       </div>
 
-                      <button class="btn btn-sm btn-success px-3" @click="promoteStudent(s.student_id, s.toClassID)">
-                        បញ្ចូលថ្នាក់
-                      </button>
+<button 
+  class="btn btn-sm btn-success px-3" 
+  @click="handlePromote(s)"
+   :disabled="s.promoted || !s.toClassID"
+>
+  បញ្ចូលថ្នាក់
+</button>
+    <span v-if="s.promoted" class="text-success small">
+      ✔ បានដំឡេីងថ្នាក់
+    </span>
+
                     </div>
                   </td>
                 </tr>
@@ -114,16 +130,28 @@ import { onMounted } from "vue";
 import { useclass } from "#imports";
 import { useAcademic } from "#imports";
 import { usePromote } from "#imports";
-
+import { ref } from "vue";
 const { classes, fetchClasses } = useclass();
 const { academicYears, fetchAcademicYears } = useAcademic();
 const { scores, loading, selectedAcademicYear, selectedClass, fetchScore, promoteStudent,studentName } = usePromote();
-
+const selectedPromoteClass = ref("");
 const getClassNameById = (id) => {
   const c = classes.value.find(x => x.id === id);
   return c ? c.name : "";
 };
+const handlePromote = async (student) => {
+  if (!student.toClassID) return;
 
+  await promoteStudent(student.student_id, student.toClassID);
+
+  // ✅ Optionally mark as done (no refresh)
+  student.promoted = true;
+};
+const applyClassToAll = () => {
+  scores.value.forEach(student => {
+    student.toClassID = selectedPromoteClass.value;
+  });
+};
 const onClassChange = async () => {
   scores.value = [];
   if (!selectedClass.value) return;
@@ -140,7 +168,7 @@ const selectClass = (student, classId) => {
 onMounted(() => {
   fetchAcademicYears();
   fetchClasses();
-  fetchScore(); // ✅ call destructured function directly
+ // fetchScore(); // ✅ call destructured function directly
 });
 </script>
 
